@@ -1,0 +1,164 @@
+<?php
+function camelize($value, $lcfirst = true) {
+    $value = preg_replace("/([_-\s]?([a-z0-9]+))/e", "ucwords('\\2')", $value);
+    return ($lcfirst ? strtolower($value[0]) : strtoupper($value[0]))
+    + substr($value, 1);
+}
+
+function array2xml($array, $xml = false) {
+//echo '<pre>'; var_dump($array);echo '</pre>';
+
+    if ($xml === false) {
+        $xml = new SimpleXMLElement('<root/>');
+    }
+    foreach ($array as $key => $value) {
+        //var_dump("key $key");
+        if (is_numeric($key)) {
+            $key = 'item';
+        }
+        if (is_array($value)) {
+            array2xml($value, $xml->addChild($key));
+        } else {
+            $xml->addChild($key, $value);
+        }
+    }
+    return $xml->asXML();
+}
+
+
+function arraySimply($array) {
+//echo '<pre>'; var_dump($array);echo '</pre>';
+    $newArray= [];
+    foreach ($array as $key => $value) {
+        //var_dump("key $key");
+        /*if (is_numeric($key)) {
+            $key = 'item';
+        }*/
+        if (is_array($value)) {
+            $newArray[$key] = arraySimply($value);
+        } else {
+            //echo $key . "<br>";
+            //echo $value . "<br>";
+            $newArray[$key] =  $value;
+        }
+    }
+    return $newArray;
+}
+// ====================
+
+/////////////////////////////////
+//2_boatshop24.co.uk_ads_details
+//https://dash.import.io/65b6b991-1a9c-4de8-be49-00cd57a759e7/settings
+//$raw_data = file_get_contents('https://extraction.import.io/query/extractor/65b6b991-1a9c-4de8-be49-00cd57a759e7?_apikey=7970b3d557714c728e28ca833612bf18771971a0083d0a8b21f37031fa36570f880bfc8a75535f1afc68bee75e83676905e0357395bdbb2e202083662079895da2430b4e9e019a5b826059ada6bbb4cb&url=http%3A%2F%2Fwww.boatshop24.co.uk%2Fmotorboat%2Focean-master-oceanmaster-640-cabin%2F16026');
+
+//////////////////////////////////////
+$name = '2_boatshop24.co.uk_ads_print_details';
+//https://dash.import.io/93cf2712-bee4-43ad-8b07-e5ce8fe01fc9/integrate
+$raw_data = file_get_contents('https://extraction.import.io/query/extractor/93cf2712-bee4-43ad-8b07-e5ce8fe01fc9?_apikey=7970b3d557714c728e28ca833612bf18771971a0083d0a8b21f37031fa36570f880bfc8a75535f1afc68bee75e83676905e0357395bdbb2e202083662079895da2430b4e9e019a5b826059ada6bbb4cb&url=http%3A%2F%2Fwww.boatshop24.co.uk%2Fprint_ad.php%3Fid%3D106208');
+
+//////////////////////////////////////
+$name = '2_boatshop24_co_uk-ads_details';
+//https://import.io/data/mine/?tag=EXTRACTOR&id=00992084-552b-486b-803e-98969b240c8d
+//full
+//$raw_data = file_get_contents('https://api.import.io/store/connector/00992084-552b-486b-803e-98969b240c8d/_query?input=webpage/url:http%3A%2F%2Fwww.boatshop24.co.uk%2Fcabin-cruiser%2Fbeneteau-antares-30%2F106208&&_apikey=7970b3d557714c728e28ca833612bf18771971a0083d0a8b21f37031fa36570f880bfc8a75535f1afc68bee75e83676905e0357395bdbb2e202083662079895da2430b4e9e019a5b826059ada6bbb4cb');
+
+//////////////////////////////////////
+$name = '2_boatshop24_co_uk-ads_details_light';
+//https://import.io/data/mine/?tag=EXTRACTOR&id=342f858a-f692-4461-b89e-44c1084f23b5
+//$raw_data = file_get_contents('https://api.import.io/store/connector/342f858a-f692-4461-b89e-44c1084f23b5/_query?input=webpage/url:http%3A%2F%2Fwww.boatshop24.co.uk%2Fmotorboat%2Focean-master-oceanmaster-640-cabin%2F16026&&_apikey=7970b3d557714c728e28ca833612bf18771971a0083d0a8b21f37031fa36570f880bfc8a75535f1afc68bee75e83676905e0357395bdbb2e202083662079895da2430b4e9e019a5b826059ada6bbb4cb');
+
+//////////////////////////////////////
+$name = '2_boatshop24_co_uk-ads_print_details';
+//https://import.io/data/mine/?tag=EXTRACTOR&id=e9a7d7d5-86e6-45c3-b18f-983930e3e629
+//$raw_data = file_get_contents('https://api.import.io/store/connector/e9a7d7d5-86e6-45c3-b18f-983930e3e629/_query?input=webpage/url:http%3A%2F%2Fwww.boatshop24.co.uk%2Fprint_ad.php%3Fid%3D106208&&_apikey=7970b3d557714c728e28ca833612bf18771971a0083d0a8b21f37031fa36570f880bfc8a75535f1afc68bee75e83676905e0357395bdbb2e202083662079895da2430b4e9e019a5b826059ada6bbb4cb');
+
+////////////////////////////////////////////
+$name = '2_boatshop24_co_uk-ads_print_details_light';
+//https://import.io/data/mine/?tag=EXTRACTOR&id=11425a16-f6c1-4be5-a628-5c323b656dd2
+//$raw_data = file_get_contents('https://api.import.io/store/connector/11425a16-f6c1-4be5-a628-5c323b656dd2/_query?input=webpage/url:http%3A%2F%2Fwww.boatshop24.co.uk%2Fprint_ad.php%3Fid%3D106208&&_apikey=7970b3d557714c728e28ca833612bf18771971a0083d0a8b21f37031fa36570f880bfc8a75535f1afc68bee75e83676905e0357395bdbb2e202083662079895da2430b4e9e019a5b826059ada6bbb4cb');
+$jSON = json_decode($raw_data, true);
+
+// ====================
+/*echo "<pre>";
+print_r($jSON);
+echo "</pre>";
+*/// ====================
+
+
+$tmp_labels_array = [];
+$tmp_values_array = [];
+
+$tmp_caracts_values_array = [];
+$tmp_caracts_categories = '';
+
+if(array_key_exists('extractorData', $jSON)) {
+    $jSon_array = $jSON['extractorData']['data'][0]['group'];
+} else {
+    $jSon_array = $jSON['results'][0];
+}
+
+echo "<pre>";
+print_r($jSon_array);
+echo "</pre>";
+$new_array = arraySimply($jSon_array);
+/*foreach($jSon_array as $key => $value) {
+    $new_array[$key] = reset($value);
+}
+*/
+
+echo "<pre>";
+print_r($new_array);
+echo "</pre>";
+
+$jSon_array['api_name'] = $name;
+
+foreach ($jSon_array as $key => $value) {
+    $pattern = '/_categories/';
+    if (preg_match($pattern, $key)) {
+        $tmp_array = $jSon_array[preg_replace($pattern, '', $key)];
+        foreach ($tmp_array as $_key => $_value) {
+            if (in_array($_value, $jSon_array[$key])) {
+                $tmp_caracts_categories = preg_replace('/\s+/', '_', strtolower($_value));
+                $tmp_caracts_values_array[preg_replace($pattern, '', $key)][$tmp_caracts_categories] = [];
+                //array_push($tmp_caracts_values_array[preg_replace($pattern, '', $key)][$tmp_caracts_categories], ['title' => $_value]);
+                array_push($tmp_caracts_values_array[preg_replace($pattern, '', $key)][$tmp_caracts_categories], ['title' => preg_replace('/:$/', '', $_value)]);;
+            } else {
+                array_push($tmp_caracts_values_array[preg_replace($pattern, '', $key)][$tmp_caracts_categories], $_value);
+            }
+        }
+        $jSon_array[preg_replace($pattern, '', $key)] = $tmp_caracts_values_array[preg_replace($pattern, '', $key)];
+        unset($jSon_array[$key]);
+    }
+    $pattern = '/_labels/';
+    if (preg_match($pattern, $key)) {
+        $jSon_array[preg_replace($pattern, '', $key)] = [];
+        $tmp_caracts_categories_key = preg_replace($pattern, '', $key);
+        //$tmp_labels_array[$tmp_caracts_categories_key] = $value;
+        $tmp_labels_array[$tmp_caracts_categories_key] = preg_replace('/:$/', '', $value);
+        unset($jSon_array[$key]);
+    }
+    $pattern = '/_values/';
+    if (preg_match($pattern, $key)) {
+        $tmp_caracts_categories_key = preg_replace($pattern, '', $key);
+        $tmp_values_array[$tmp_caracts_categories_key] = $value;
+        unset($jSon_array[$key]);
+    }
+}
+
+foreach ($tmp_values_array[$tmp_caracts_categories_key] as $key => $value) {
+    array_push($jSon_array[$tmp_caracts_categories_key], [
+        'label' => $tmp_labels_array[$tmp_caracts_categories_key][$key],
+        'value' => $tmp_values_array[$tmp_caracts_categories_key][$key]
+    ]);
+}
+
+// ====================
+/*
+echo "<pre>";
+print_r($jSon_array);
+echo "</pre>";
+*/
+// ====================
+
+header('Content-type: text/xml');
+print array2xml($jSon_array);

@@ -1,0 +1,98 @@
+.red {color:#F00}
+.mr10 {margin-right:10px !important}
+.mr20 {margin-right:20px !important}
+.ml20 {margin-right:20px !important}
+.mt0 {margin-top:0px !important}
+.mt05 {margin-top:5px !important}
+.mt10 {margin-top:10px !important}
+.mt15 {margin-top:15px !important}
+.mt20 {margin-top:20px !important}
+.mt-20 {margin-top:-20px !important}
+.mt40 {margin-top:40px !important}
+.mb0 {margin-bottom:0px !important}
+.mb10 {margin-bottom:10px !important}
+.mb20 {margin-bottom:20px !important}
+.ma0 {margin:0 !important;}
+.pa0 {padding:0 !important;}
+.w100 {width:100%}
+.noborder td {border:none !important}
+.bord5 {border: 5px solid #FFF;}
+.fw300 {font-weight:300 !important}
+.fw400 {font-weight:400 !important}
+.fs22 {font-size:22px;}
+.fs58 {font-size:58px;}
+.fs12 {font-size:12px;}
+.myh1 {color: #FFF;font-size: 23px;text-align: center;line-height: 19px}
+.sstitmyh1 {font-size:12px}
+.pa1020 {padding:10px 20px}
+.color_inactif a {color:#A5A5A5 !important}
+.relativediv { position: relative }
+.blueflash {color:#57CEF4}
+.myhr {margin:5px 0 20px 0}
+.myhidden {display:none}
+.fleft {float:left}
+.fright {float:right}
+
+.h3argusgen {padding:15px 0 0 15px}
+.tabpa15 th, .tabpa15 td {padding:15px !important;}
+.tabpa10 th, .tabpa10 td {padding:8px 15px !important;}
+
+.tabfs15 td {font-size:15px !important;vertical-align:middle !important}
+/* SELECT 2 ARGUS */
+.select2-container--default .select2-selection--single {
+    border-radius: 0px;
+    border: 1px solid #e5e6e7;
+}
+.select2-container .select2-selection--single {
+    height:34px
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height:31px
+}
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    font-size:15px;
+    color:#666
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height:32px
+}
+.select2-container--disabled .select2-selection__rendered {
+cursor: not-allowed !important;
+}
+
+/** ARGUS **/
+.tabArgusFrais {border:0 !important}
+.tabArgusFrais td {border-top:0 !important;padding: 5px 5px 0 0 !important;}
+
+/** PROJET **/
+.footable-odd {
+    background-color: #fff !important;
+}
+.project-list .notdone {
+    background-color: #f7f7f7 !important;
+}
+
+/** NOUS CONTACTER **/
+.mytextcontact {margin:0 !important}
+.contactus .form-horizontal .has-feedback .form-control-feedback {top:10px}
+
+
+
+
+
+
+/*** MEDIA QUERIES **/
+@media (max-width: 768px) {
+    .mt20-xs {margin-top:20px !important;}
+    .mt0-xs {margin-top:0px !important;}
+    .btnblock-xs {width:100%}
+    .blockcenter-xs {display:block;text-align: center;width:100%}    
+    
+    .page-heading h2 {font-size:17px;overflow:hidden}
+    .fs58 {font-size:39px}
+    .title-action {padding:0}
+	
+  
+}
+
+

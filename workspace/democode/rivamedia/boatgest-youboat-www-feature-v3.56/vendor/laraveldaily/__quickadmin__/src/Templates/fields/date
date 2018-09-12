@@ -1,0 +1,12 @@
+<div class="form-group">
+    {!! Form::label('$LABEL$', '$TITLE$', ['class'=>'col-sm-4 control-label']) !!}
+    <div class="col-sm-8">
+        <div class='input-group datepicker date'>
+            {!! Form::text('$LABEL$', old('$LABEL$'), ['class'=>'form-control']) !!}
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+        $HELPER$
+    </div>
+</div>

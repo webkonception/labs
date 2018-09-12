@@ -1,0 +1,1 @@
+@include('errors.errors', array('error_code' => 503, 'error_content'=>isset($error_content) ? $error_content : ''))

@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class UpdateUsersTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            //$table->renameColumn('name', 'username');
+            $table->integer('role_id')->nullable()->unsigned()->after('id')->references('id')->on('roles');
+            $table->enum('type', array('admin','user','customer','dealer','dealer_pro'))->collate('utf8_unicode_ci')->default('user');
+            $table->enum('status', array('active','inactive'))->collate('utf8_unicode_ci')->default('inactive');
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('role');
+        });
+    }
+}

@@ -1,0 +1,7 @@
+<div class="form-group">
+    {!! Form::label('$LABEL$', '$TITLE$', ['class'=>'col-sm-4 control-label']) !!}
+    <div class="col-sm-8">
+        {!! Form::radio('$LABEL$', $VALUE$, false) !!}
+        $HELPER$
+    </div>
+</div>

@@ -1,0 +1,33 @@
+@extends(config('quickadmin.route') . '.layouts.master')
+
+@section('content')
+
+<div class="row">
+    <div class="col-sm-11 col-sm-offset-1">
+        <h1><i class="fa fa-plus-circle fa-fw"></i>Add new</h1>
+    </div>
+
+    @if ($errors->any())
+    <div class="col-sm-12">
+        <div class="alert alert-danger">
+            <ul>
+                {!! implode('', $errors->all('<li class="error">:message</li>')) !!}
+            </ul>
+        </div>
+    </div>
+    @endif
+</div>
+
+{!! Form::open(array($FILES$'route' => config('quickadmin.route') . '.$ROUTE$.store', 'id' => 'form-with-validation', 'class' => 'form-horizontal')) !!}
+
+    $FORMFIELDS$
+
+    <div class="form-group">
+        <div class="col-sm-12 text-center">
+            {!! Form::button('<i class="fa fa-cog fa-spin fa-fw"></i>Create', ['type' => 'submit', 'class' => 'btn btn-lg btn-primary']) !!}
+        </div>
+    </div>
+
+{!! Form::close() !!}
+
+@endsection

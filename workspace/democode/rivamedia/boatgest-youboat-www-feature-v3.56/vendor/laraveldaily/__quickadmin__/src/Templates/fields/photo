@@ -1,0 +1,9 @@
+<div class="form-group">
+    {!! Form::label('$LABEL$', '$TITLE$', ['class'=>'col-sm-4 control-label']) !!}
+    <div class="col-sm-8">
+        {!! Form::file('$LABEL$') !!}
+        {!! Form::hidden('$LABEL$_w', $WIDTH$) !!}
+        {!! Form::hidden('$LABEL$_h', $HEIGHT$) !!}
+        $HELPER$
+    </div>
+</div>

@@ -1,0 +1,121 @@
+@extends(config('quickadmin.route') . '.layouts.master')
+
+@section('content')
+
+    @if ($errors->any())
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-danger">
+                    <ul>
+                        {!! implode('', $errors->all('<li class="error">:message</li>')) !!}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    {!! Form::open(array('route' => config('quickadmin.route') . '.ads.store', 'id' => 'form-with-validation', 'role'=>'form', 'class' => 'form-horizontal')) !!}
+
+        {{--<div class="form-group">
+            {!! Form::label('dealer_id', 'Dealer id*', ['class'=>'col-xs-3 col-sm-4 control-label']) !!}
+            <div class="col-xs-9 col-sm-8">
+                {!! Form::text('dealer_id', old('dealer_id'), ['class'=>'form-control']) !!}
+            </div>
+        </div>--}}
+
+        <div class="row">
+            <div class="col-sm-6">
+            </div>
+            <div class="col-sm-6">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {!! Form::label('dealerscaracts_id', 'Dealers*', ['class'=>'col-xs-3 col-sm-4 control-label']) !!}
+                    <div class="col-xs-9 col-sm-8">
+                        {{--{!! Form::select('dealerscaracts_id', $dealerscaracts, old('dealerscaracts_id'), ['placeholder' => 'Pick a choice', 'class'=>'form-control']) !!}--}}
+                        {!! Form::select('dealerscaracts_id', $dealers, null, ['class'=>'form-control']) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {!! Form::label('country_contracts_ids', 'Country contracts', ['class'=>'col-xs-3 col-sm-4 control-label']) !!}
+                    <div class="col-xs-9 col-sm-8">
+                        {!! Form::select('country_contracts_ids[]', $country_contracts, null, ['multiple'=>'multiple', 'class'=>'form-control']) !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {!! Form::label('categories_ids', 'Categories', ['class'=>'col-xs-3 col-sm-4 control-label']) !!}
+                    <div class="col-xs-9 col-sm-8">
+                        {!! Form::select('categories_ids[]', $categories, null, ['multiple'=>'multiple', 'class'=>'form-control']) !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    {!! Form::label('start_date', 'Start date', ['class'=>'col-xs-3 col-sm-4 control-label']) !!}
+                    <div class="col-xs-9 col-sm-8">
+                        {!! Form::text('start_date', old('start_date'), ['class'=>'form-control datepicker']) !!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('start_date', 'Start date', ['class'=>'col-xs-3 col-sm-4 control-label']) !!}
+                    <div class="col-xs-9 col-sm-8">
+                        <div class="input-group date datepicker">
+                            {!! Form::text('start_date', old('start_date'), ['class'=>'form-control']) !!}
+                            <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    {!! Form::label('end_date', 'End date', ['class'=>'col-xs-3 col-sm-4 control-label']) !!}
+                    <div class="col-xs-9 col-sm-8">
+                        {!! Form::text('end_date', old('end_date'), ['class'=>'form-control datetimepicker']) !!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('end_date', 'End date', ['class'=>'col-xs-3 col-sm-4 control-label']) !!}
+                    <div class="col-xs-9 col-sm-8">
+                        <div class="input-group date datetimepicker">
+                            {!! Form::text('end_date', old('end_date'), ['class'=>'form-control']) !!}
+                            <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    {!! Form::label('status', 'Status', ['class'=>'col-xs-3 col-sm-4 control-label']) !!}
+                    <div class="col-xs-9 col-sm-8">
+                        {!! Form::select('status', $status, old('status', $status['inactive']), ['class'=>'form-control']) !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <div class="col-sm-12 text-center">
+              {!! Form::button('<i class="fa fa-cog fa-fw"></i>' . ucfirst(trans('navigation.create')), ['type'=>'submit', 'class'=>'btn btn-lg btn-primary']) !!}
+              {!! htmlspecialchars_decode(link_to(url()->previous(), '<i class="fa fa-mail-reply fa-fw"></i>' . ucfirst(trans('navigation.back')), ['class' => 'btn btn-default pull-right'])) !!}
+            </div>
+        </div>
+
+    {!! Form::close() !!}
+
+@endsection

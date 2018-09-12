@@ -1,0 +1,7 @@
+<div class="form-group">
+    {!! Form::label('$LABEL$', '$TITLE$', ['class'=>'col-sm-4 control-label']) !!}
+    <div class="col-sm-8">
+        {!! Form::select('$LABEL$', $SELECT$, old('$LABEL$'), ['class'=>'form-control']) !!}
+        $HELPER$
+    </div>
+</div>

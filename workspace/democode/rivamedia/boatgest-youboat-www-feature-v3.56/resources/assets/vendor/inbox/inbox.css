@@ -1,0 +1,127 @@
+.fab {
+    cursor: pointer;
+}
+
+.fab-backdrop {
+    color: rgba(255, 255, 255, 0);
+}
+
+.fab-primary,
+.fab-secondary {
+    transition: all 0.35s ease-in-out;
+}
+
+.fab.active .fab-primary {
+    opacity: 0;
+    transform: rotate(225deg);
+}
+
+.fab-secondary {
+    opacity: 0;
+    transform: rotate(-225deg);
+}
+
+.fab.active .fab-secondary {
+    opacity: 1;
+    transform: rotate(0);
+    margin-top: -2px;
+}
+
+#inbox .show-on-hover:hover > ul.dropdown-menu {
+    display: block;
+}
+
+#inbox .show-on-hover {
+    /*position: absolute;
+    bottom: 80px;
+    right: 80px;*/
+    position: fixed;
+    bottom: 1.5em;
+    right: 1em;
+}
+
+#inbox .btn-io {
+    border-radius: 50%;
+    height: 54px;
+    width: 54px;
+    padding: 0 !important;
+    -webkit-box-shadow: 0px 3px 7px 0px rgba(202, 124, 124, 0.72);
+    box-shadow: 0px 3px 7px 0px rgba(202, 124, 124, 0.72);
+}
+#inbox .btn-io:hover {
+    background-color: #3b9c96;
+    border-color: #307f7a;
+
+    box-shadow: 0px 3px 7px 0px #307f7a;
+}
+#inbox .dropup .dropdown-menu,
+.navbar-fixed-bottom .dropdown .dropdown-menu {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 1px;
+    margin-bottom: -5px;
+    padding-bottom: 30px;
+}
+
+#inbox .dropdown-menu-right {
+    right: 0 !important;
+    left: auto !important;
+}
+
+#inbox .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 50px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: center;
+    list-style: none;
+    background-color: rgba(255, 255, 255, 0) !important;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: none;
+    border-radius: 0px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0) !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0) !important;
+}
+
+#inbox .fa-iox {
+    font-size: 22px;
+}
+
+#inbox .dropdown-menu > li > a {
+    display: block;
+    padding: 0;
+    padding-top: 4px;
+    margin-top: 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    /*color: #333;*/
+    color: #fff;
+    /*background: #fff;*/
+    white-space: nowrap;
+    width: 40px;
+    height: 40px;
+    border: solid 1px #ccc;
+    border-radius: 50px;
+    font-size: 1.25em;
+    box-shadow: 0px 3px 7px 0px rgba(203, 203, 203, 0.72);
+}
+#inbox .dropdown-menu > li > a .fa {
+    color: inherit;
+    font-size: inherit;
+    margin: initial;
+    padding: inherit;
+    background: inherit;
+}
+
+#inbox .dropdown-menu li > a:hover, #inbox .dropdown-menu .active > a, #inbox .dropdown-menu .active > a:hover {
+    background: #FFF;
+    color: #000;
+}

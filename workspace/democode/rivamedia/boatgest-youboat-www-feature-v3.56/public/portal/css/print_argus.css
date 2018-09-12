@@ -1,0 +1,13 @@
+#page-wrapper {margin:0 !important;padding:0 !important;min-height: 1000px !important}    
+.navbar, .navbar-default, .page-heading {
+    display:none;visibility:hidden;
+}
+.footer {margin-bottom: 20px}
+.ibox-content {border-width:0}
+.wrapper-content {padding:0}
+.p-xl {
+    padding: 10px;
+}
+.border-bottom {
+    border-bottom: 0 !important
+}

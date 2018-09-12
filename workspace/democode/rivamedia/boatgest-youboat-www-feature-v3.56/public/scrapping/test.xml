@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<root>
+    <ad_price>&#xA3; 75,000</ad_price>
+    <ad_phones>07839774000</ad_phones>
+    <ad_features_caracts>
+        <general_equipment><0>
+            <title>General Equipment</title>
+        </0>
+        <item>Transom Door To Bathing Platform</item>
+        <item>Integrated Bathing Platform</item>
+        <item>Bathing Ladder</item>
+        <item>Davits</item>
+        <item>Anchor W Chain</item>
+        <item>Trim Tabs</item>
+        <item>Pressurized Warmwater System</item>
+        <item>Stern Shower Hot/cold</item>
+        <item>Bow Thruster</item>
+        <item>Fire Extinguisher</item>
+        <item>Tv Aerial</item>
+        <item>Radio</item>
+        <item>Cdplayer</item>
+        <item>Cushion Cover Textile</item>
+        <item>Cockpit Table</item>
+        <item>Cockpit Carpet</item>
+        <item>Suncushion On Foredeck</item>
+        <item>Dinghy</item>
+        <item>Antifouling</item>
+        <item>Additional Extras</item>
+    </general_equipment>
+    <electronic_equipment><0>
+        <title>Electronic Equipment</title>
+    </0>
+    <item>Shore Supply</item>
+    <item>Battery</item>
+    <item>Battery Charger</item>
+    <item>Main Circuit Breaker</item>
+    <item>Windscreen Wiper</item>
+    <item>Windscreen Wiper W Washer</item>
+    <item>Loudspeaker In Cockpit</item>
+    <item>Anchor Capstan W Remote</item>
+    <item>Bilge Pump</item>
+    <item>Electric Bilge Pump</item>
+    <item>Heating Hotair</item>
+    <item>Fire Extinguisher System</item>
+</electronic_equipment><engine_equipment><0>
+<title>Engine Equipment</title>
+</0><item>Bow Thruster</item><item>Trim Tabs Electro/hydraulic</item></engine_equipment><galley_equipment><0>
+<title>Galley Equipment</title>
+</0><item>Gas Cooker</item><item>Gas Stove</item><item>Oven</item><item>Grill</item><item>Sink</item><item>
+Refrigerator
+</item><item>Microwave</item></galley_equipment><navigation_equipment><0>
+<title>Navigation Equipment</title>
+</0><item>Depth Sounder</item><item>Fish Finder</item><item>Gps</item><item>Compass</item><item>Speedometer</item><item>
+Plotter
+</item><item>Vhf Radio</item></navigation_equipment><wc_bathroom><0>
+<title>Wc Bathroom</title>
+</0><item>Toilet Electric</item><item>Washbasin</item><item>Shower</item></wc_bathroom><interior_cabin_layout><0>
+<title>Interior Cabin Layout</title>
+</0><item>Master Cabin</item><item>Guest Cabin</item><item>Saloon</item><item>Flybridge</item><item>Helm Interior
+</item><item>Helm On Fly</item><item>Cabin With Bunk Beds</item></interior_cabin_layout><cover_type><0>
+<title>Cover Type</title>
+</0><item>Cockpit Cover</item><item>Flying Bridge Cover</item></cover_type></ad_features_caracts><ad_ref>BCU6189EE1
+</ad_ref><ad_description_full/><ad_features_caracts_categories>
+<item>General Equipment</item>
+<item>Electronic Equipment</item>
+<item>Engine Equipment</item>
+<item>Galley Equipment</item>
+<item>Navigation Equipment</item>
+<item>Wc Bathroom</item>
+<item>Interior Cabin Layout</item>
+<item>Cover Type</item>
+</ad_features_caracts_categories><ad_title>Beneteau - Antares 30</ad_title><ad_photo>
+/img/adphotos/paa/292/104292_-_photo_1_1460321080_img.jpg
+</ad_photo><ad_description_caracts><0>
+<label>Type:</label>
+<value>Cabin Cruisers</value>
+</0><1><label>Sales status:</label><value>available</value></1><2><label>Manufacturer:</label><value>Beneteau
+</value></2><3><label>Model:</label><value>Antares 30</value></3><4><label>Model:</label><value>Antares 30
+</value></4><5><label>Mooring Country:</label><value>United Kingdom</value></5><6><label>Year built:</label><value>
+2011
+</value></6><7><label>Flag:</label><value>Guernsey</value></7><8><label>Length:</label><value>10.00 m/33 ft
+</value></8><9><label>Width:</label><value>3 m/10 ft</value></9><10><label>Draft:</label><value>1 m/3 ft
+</value></10><11><label>Weight dry:</label><value>5700</value></11><12><label>First launch:</label><value>2011
+</value></12><13><label>No. of previous owners:</label><value>1</value></13><14><label>Condition:</label><value>as new
+</value></14><15><label>Sale Type:</label><value>Used</value></15><16><label>Sale:</label><value>Private
+</value></16><17><label>Sale:</label><value>Private</value></17><18><label>Propulsion:</label><value>Inboard
+</value></18><19><label>Engine manufacturer:</label><value>Volvo</value></19><20><label>Engine manufacturer:
+</label><value>Volvo</value></20><21><label>No. of engines:</label><value>1</value></21><22><label>Engine hours:
+</label><value>250</value></22><23><label>HP:</label><value>370</value></23><24><label>Fuel Capacity:</label><value>
+400
+</value></24><25><label>Material hull:</label><value>GRP</value></25><26><label>Material deck:</label><value>GRP
+</value></26><27><label>Fresh water capacity:</label><value>120</value></27><28><label>Holding tank capacity:
+</label><value>80</value></28><29><label>No. of cabins:</label><value>3</value></29><30><label>No. of berths:
+</label><value>6</value></30><31><label>Headroom:</label><value>2 m/7 ft</value></31><32><label/><value>1
+</value></32><33><label>Displacement:</label><value>1 metre</value></33><34><label>Deck Colour:</label><value>White
+</value></34><35><label>Deck Const.:</label><value>GRP</value></35><36><label>Hull Colour:</label><value>Dark Blue
+</value></36><37><label>Hull Const.:</label><value>GRP</value></37><38><label>Super Colour:</label><value>White
+</value></38><39><label>Super Const.:</label><value>GRP</value></39></ad_description_caracts></root>

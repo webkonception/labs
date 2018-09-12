@@ -1,0 +1,103 @@
+.pay-plans .logo {
+    width: 100%;
+    float: none;
+}
+.pay-plans .header-right {
+    display: none;
+}
+.pay-plans h2.inbox-title {
+    font-size: 1.85em;
+    padding: 0 0 .5em ;
+    line-height: 1.15em;
+}
+@media only screen and (max-width: 767px) {
+  .pay-plans .page-header {
+      min-height: 60px;
+      margin-top: -52px;
+  }
+}
+blockquote.pay-success-msg {
+    border-color: inherit;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+blockquote.pay-success-msg-infos {
+  border-left: 5px solid;
+  margin-left: 1em;
+  margin-right: -1em;
+}
+blockquote.pay-success-msg-datas {
+  border-right: 5px solid;
+}
+#pay_block hr {
+    margin-top: .5em;
+    margin-bottom: 1em;
+}
+.plan {
+    margin-bottom: .5em;
+}
+.charge-item,
+.plan-item {
+    padding: 10px;
+    color: #FFF;
+    text-align: center;
+    border-radius: 1em;
+    margin: auto;
+    min-height: 160px;
+}
+.charge-item .panel-body,
+.plan-item .panel-body {
+    padding: 1em 0 .5em;
+}
+.charge-item .panel-heading,
+.plan-item .panel-heading {
+    min-height: 6em;
+    line-height: initial;
+    text-align: left;
+    padding-bottom: 0;
+}
+.charge-item .panel-heading {
+    min-height: 4em;
+}
+.charge-item .panel-heading h2,
+.plan-item .panel-heading h2 {
+    display: inline;
+    color: inherit;
+    line-height: initial;
+}
+.charge-item label,
+.plan-item label {
+    color: inherit;
+    font-size: 2em;
+    font-weight: bold;
+}
+button[type="submit"].stripe-button-el,
+#payform .stripe-button-el{
+    width: 100%;
+}
+button[type="submit"].stripe-button-el:not(:disabled):active,
+button[type="submit"].stripe-button-el.active,
+button[type="submit"].stripe-button-el,
+button[type="submit"].stripe-button-el:not(:disabled):active span,
+button[type="submit"].stripe-button-el.active span,
+button[type="submit"].stripe-button-el span,
+#payform .stripe-button-el,
+#payform .stripe-button-el span {
+    color: #fff;
+    background: #5cb85c;
+    border-color: #4cae4c;
+    -webkit-box-shadow:none;
+    box-shadow: none;
+    text-shadow:none;
+}
+button[type="submit"].stripe-button-el span,
+#payform .stripe-button-el span {
+    background: inherit;
+    padding: 1em;
+    min-height: 50px !important;
+    line-height: inherit;
+    padding: .5em 0;
+    font-size: 1.25em;
+    text-transform: uppercase;
+    width: 100%;
+}
