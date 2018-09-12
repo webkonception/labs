@@ -1,0 +1,11 @@
+<h2>Cercle Confiance - Mur de messages</h2>
+
+<p>
+    Bonjour,
+    <br />
+    <strong>{{ currentUserName }}</strong> a laissé un nouveau message sur le Mur du Cercle Confiance "<strong>{{ circleName }}</strong>".
+    <br />
+    <strong style="font-size:1em;color:#337ab7;"><a href="{{ basepath }}cercles/{{ token }}/mur">Accéder au Mur du Cercle Confiance {{ circleName }}</a></strong>.
+    <br />
+    <em>[{{ creationDate.date|date("d/m/Y H:i") }}]</em>
+</p>

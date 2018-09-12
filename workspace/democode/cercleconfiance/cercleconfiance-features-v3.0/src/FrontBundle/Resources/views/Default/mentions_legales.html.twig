@@ -1,0 +1,63 @@
+{% extends "FrontBundle::layoutFront.html.twig" %}
+
+{% block title %}Mentions légales{% endblock %}
+{% block links %}
+    <!--<li class="scroll"><a href="/">Accueil</a></li>-->
+    <li class="scroll"><a href="{{ path('presentation') }}">A propos</a></li>
+    <li class="scroll active"><a href="{{ path('services') }}">Services</a></li>
+    <li class="scroll"><a href="{{ path('pres_objets') }}">Objets connectés</a></li>
+    <li class="scroll"><a href="{{ path('accueil') }}">Accès aux cercles</a></li>
+{% endblock %}
+{% block content %}
+    <section id="partenaires">
+        <div class="container">
+
+            <div class="section-header serviceTitle">
+                <h2 class="section-title text-center wow fadeInDown">Mentions légales</h2>
+                <div class="row">
+                    <div class="text-left wow fadeInDown text-primary col-xs-12">
+                        <strong><u>Editeur :</u></strong>
+                        <br />
+                        <blockquote>
+                            <strong class="lead"><em>Cercle Confiance</em></strong>
+                            <br />
+                            Société par Actions Simplifiées au capital de 70 000&euro;
+                            Immatriculée au RCS d’Orléans sous le numéro 817 644 305
+                            <br />
+                            <br />
+                            <strong><u>Dont le siège social est situé :</u></strong><br />
+                            1831 route de Mézières<br />
+                            45370 Cléry-Saint-André<br />
+                            <br />
+                            <strong><u>Tel :</u></strong> 02 38 45 96 81<br />
+                            <strong><u>Adresse électronique :</u></strong> contact&#64;cercle-confiance.fr<br />
+                            <strong><u>Directeur de la publication :</u></strong> Olivier JOUIN
+                        </blockquote>
+                    </div>
+                    <div class="text-left wow fadeInDown text-info col-sm-12">
+                        <strong><u>Hébergement :</u></strong>
+                        <br />
+                        <blockquote>
+                            <strong class="lead"><em>OVH</em></strong><br />
+                            Société par Actions Simplifiée au capital de 10 059 500&euro; Immatriculée au RCS de Lille sous le n° 424 761 419
+                            <br />
+                            <br />
+                            <strong><u>Dont le siège social est situé :</u></strong><br />
+                            2 rue Kellermann BP 80157 59053 ROUBAIX Cedex 1<br />
+                            <br />
+                            <strong><u> Tél :</u></strong> +33 8 203 203 63 <br />
+                            <strong><u>Adresse électronique :</u></strong> support&#64;ovh.com www.ovh.com<br />
+                        </blockquote>
+                    </div>
+                    <div class="text-left wow fadeInDown col-sm-12">
+                        <strong><u>Propriété Intellectuelle :</u></strong>
+                        <br />
+                        <blockquote>
+                        Tous les éléments présents au sein de ce site, tels que sons, images, photographies, vidéos, écrits, animations, programmes, charte graphique, utilitaires, bases de données, logiciel, sont protégés par les dispositions du Code de la propriété intellectuelle et appartiennent à Cercle Confiance.
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="container">
+    <div class="row login">
+        <div class="col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1">
+            <header class="section-header">
+                <h2 class="section-title text-center wow fadeInDown">Connectez-vous à votre compte</h2>
+            </header>
+            {% if errors %}
+            <div class="alert alert-danger text-danger">{{ errors.messageKey|trans(errors.messageData, 'security') }}</div>
+            {% endif %}
+        </div>
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 form well login-box">
+            <form action="{{ path("fos_user_security_check") }}" method="post">
+                {% if csrf_token %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                {% endif %}
+                <input type="hidden" name="_target_path" value="{{ basepath }}cercles/" />
+                <div class="form-group">
+                    <label for="username">{{ 'form.email'|trans }} :</label>
+                    <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}"
+                           required="required"/>
+                </div>
+                <div class="form-group">
+                    <label for="password">{{ 'security.login.password'|trans }} :</label>
+                    <input class="form-control" type="password" id="password" name="_password" required="required"/>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                    <label for="remember_me">{{ 'security.login.remember_me'|trans }} !!!</label>
+                </div>
+                <div class="form-group text-center">
+                    <input class="btn btn-default btn-info btn-block" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}"/>
+                </div>
+                <div class="form-group text-center">
+                    <a href="{{ path('fos_user_resetting_request') }}" class="text-danger small"><u><small>{{ 'resetting.request.submit'|trans }}</small></u></a>
+                </div>
+            </form>
+        </div>
+        <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-1 text-center">
+            <a href="{{ path('fos_user_registration_register') }}" class="btn btn-success btn-block btn-lg btn-not_yet">Pas encore <br>inscrit ? <br>Par ici !</a>
+        </div>
+    </div>
+</div>

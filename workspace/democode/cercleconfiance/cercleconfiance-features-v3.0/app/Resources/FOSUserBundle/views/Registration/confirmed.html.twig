@@ -1,0 +1,32 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <!--<div class="container text-center marginTop marginBottom">
+        <h3>Bienvenue {{ user.username }} !</h3>
+        <p>Votre inscription est effectuée !</p>
+        {% if targetUrl %}
+        <p><a href="{{ path('accueil') }}">Retourner à la page de sélection des cercles</a></p>
+        {% endif %}
+    </div>-->
+
+<div class="container">
+    <div class="row registrationConfirmed">
+        <div class="text-center col-sm-8 col-sm-offset-2">
+            <header class="section-header">
+                <h2 class="section-title text-center wow fadeInDown">{{ 'registration.submit'|trans }}</h2>
+            </header>
+        </div>
+        <div class="col-sm-8 col-sm-offset-2">
+            <p class="text-center">{{ 'registration.confirmed'|trans({'%username%': user.firstname ~ ' ' ~ user.name}) }}</p>
+        </div>
+        <div class="col-sm-6 text-center">
+            <a href="{{ basepath }}cercles/" class="btn btn-lg btn-success">Accès aux cercles</a>
+        </div>
+        <div class="col-sm-6 text-center">
+            <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-lg btn-primary">{{ 'profile.edit.submit'|trans }} votre profil</a>
+        </div>
+    </div>
+</div>
+{% endblock fos_user_content %}

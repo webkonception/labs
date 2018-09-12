@@ -1,0 +1,289 @@
+
+{% extends 'AppBundle::layoutAppli.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block content %}
+<section class="container">
+    {#{% block menu %}{{ parent() }}{% endblock %}#}
+    <div class="row btn-tools">
+        <div class="col-xs-6 text-left">
+            <a href="{{ path('appli', {'token': token}) }}" class="btn btn-default btn-back" title="Retour"><i class="fa fa-arrow-left fa-fw"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="section-header col-xs-8 col-xs-offset-2 col-sm-10 col-sm-offset-1 text-center">
+            <h2 class="section-title text-center">Partage de fichiers</h2>
+            <h3 class="hidden-xs">Vous avez la possibilité de partager des fichiers avec les autres membres de votre Cercle Confiance</h3>
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible fade in" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span></a>
+                    <strong>{{ message }}</strong>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div id="dropzone" class="col-xs-12 col-sm-6">
+            <img src="{{ asset("assets/images/up.png") }}" alt="upload" class="upload img-responsive wow pulse animated" data-wow-delay="300ms" data-wow-iteration="infinite" data-wow-duration="3s">
+        </div>
+        {% if error is defined %}
+            <h3>{{ error | raw }}</h3>
+        {% else %}
+            <div class="col-xs-12 col-sm-6 text-center">
+                {{ form(form) }}
+            </div>
+        {% endif %}
+    </div>
+</section>
+<section class="container-fluid marginBottom">
+    {% if error is not defined %}
+    <div class="row files isotope">
+        <div class="col-xs-12 filters">
+            <div class="row button-group">
+                {#<button class="button is-checked" data-filter="*">show all</button>
+                {% for CUser in CUsers %}
+                    #}{#<button class="button{% if CUser.circleCenter == true %} is-checked{% endif %}" data-filter=".user_{{ CUser.user.id }}">{{ CUser.user.firstname }} {{ CUser.user.name }}</button>#}{#
+                    <button class="button" data-filter=".user_{{ CUser.user.id }}">{{ CUser.user.firstname }} {{ CUser.user.name }}</button>
+                {% endfor %}#}
+
+                <div class="col-md-12 col-lg-6 ui-group users-group">
+                    <div class="button-group js-radio-button-group well well-sm" data-filter-group="users">
+                        <ul class="nav nav-tabs nav-justified text-center">
+                            <li role="presentation">
+                                <button class="btn btn-block btn-default" data-filter="*"><span class="hidden-xs">Tous</span><i class="fa fa-users fa-fw" aria-hidden="true"></i></button>
+                            </li>
+                            {% for CUser in CUsers %}
+                                {% if CUser.user.firstname is defined and CUser.user.name is defined %}
+                                    {% set fullname = CUser.user.firstname|lower|capitalize ~ '_' ~ CUser.user.name|lower|capitalize %}
+                                {% elseif CUser.user.firstname is defined %}
+                                    {% set fullname = CUser.user.firstname|lower|capitalize %}
+                                {% elseif CUser.user.name is defined %}
+                                    {% set fullname = CUser.user.name|lower|capitalize %}
+                                {% elseif CUser.user.username is defined %}
+                                    {% set fullname = CUser.user.username %}
+                                {% else %}
+                                    {% set fullname = 'inconnu' %}
+                                {% endif %}
+                                {% set fullname = fullname ~ '_' ~ CUser.user.id %}
+
+                                {% set nb_files = 0 %}
+                                {% for dataApp in CUser.dataApps|sort|reverse if dataApp.cloud is not null %}
+                                    {% set nb_files = nb_files + 1 %}
+                                {% endfor %}
+                            <li role="presentation"{% if CUser.user.id == circleUser.user.id %}  class="active"{% endif %}>
+                                <button class="btn btn-block{% if CUser.user.id == circleUser.user.id %} is-checked{% endif %}" data-fullname="{{ fullname|replace({' ': "_"}) }}" data-filter=".user_{{ CUser.user.id }}" style="border-color: {{ cloudUsersColors[CUser.user.id] }};color: {{ cloudUsersColors[CUser.user.id] }}">{% if CUser.user.firstname is defined %}{{ CUser.user.firstname|lower|capitalize }}{% elseif CUser.user.name is defined %}{{ CUser.user.name|lower|capitalize }}{% elseif CUser.user.username is defined %}{{ CUser.user.username }}{% else %}inconnu{% endif %}{% if nb_files > 0 %} <span class="badge" style="background-color: {{ cloudUsersColors[CUser.user.id] }};">{{ nb_files }}</span>{% endif %}</button>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <em class="hidden-xs text-muted small ">Filtrer par membre</em>
+                    </div>
+                </div>
+
+                <div class="hidden-xs col-md-12 col-lg-6 ui-group files-group">
+                    <div class="button-group js-radio-button-group well well-sm" data-filter-group="filetype">
+                        <ul class="nav nav-tabs nav-justified text-center">
+                            <li role="presentation" class="active">
+                                <button class="btn btn-block btn-default is-checked" data-filter=""><span class="hidden-xs">Tous</span><i class="fa fa-files-o fa-fw" aria-hidden="true"></i></button>
+                            </li>
+                            <li role="presentation">
+                                <button class="btn btn-block btn-primary" data-filter=".image"><span class="hidden-xs">image</span><i class="fa fa-1x fa-file-image-o fa-fw"></i></button>
+                            </li>
+                            <li role="presentation">
+                                <button class="btn btn-white btn-block" data-filter=".video"><span class="hidden-xs">video</span><i class="fa fa-1x fa-video-camera fa-fw"></i></button>
+                            </li>
+                            <li role="presentation">
+                                <button class="btn btn-block btn-info" data-filter=".doc"><span class="hidden-xs">doc</span><i class="fa fa-1x fa-file-word-o fa-fw"></i></button>
+                            </li>
+                            <li role="presentation">
+                                <button class="btn btn-block btn-success" data-filter=".xls"><span class="hidden-xs">xls</span><i class="fa fa-1x fa-file-excel-o fa-fw"></i></button>
+                            </li>
+                            <li role="presentation">
+                                <button class="btn btn-block btn-danger" data-filter=".pdf"><span class="hidden-xs">pdf</span><i class="fa fa-1x fa-file-pdf-o fa-fw"></i></button>
+                            </li>
+                            <li role="presentation">
+                                <button class="btn btn-block btn-white" data-filter=".audio"><span class="hidden-xs">audio</span><i class="fa fa-1x fa-music fa-fw"></i></button>
+                            </li>
+                             <li role="presentation">
+                                <button class="btn btn-block btn-black" data-filter=".text"><span class="hidden-xs">texte</span><i class="fa fa-1x fa-file-text-o fa-fw"></i></button>
+                            </li>
+                            <li role="presentation">
+                                <button class="btn btn-block btn-warning" data-filter=".divers"><span class="hidden-xs">divers</span><i class="fa fa-1x fa-file fa-fw"></i></button>
+                            </li>
+                        </ul>
+                        <em class="hidden-xs text-muted small">Filtrer par type de fichier</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 grid">
+            <div class="row files-items text-center">
+            {% for CUser in CUsers %}
+                {% for dataApp in CUser.dataApps|sort|reverse if dataApp.cloud is not null %}
+                    {% set replace_value_var= token ~ "/" %}
+                    {% set replace_with_value_var = '' %}
+                    {% set fileName = dataApp.cloud.fileName|replace({ (replace_value_var): replace_with_value_var }) %}
+
+                    {% set fileType= '' %}
+
+                    {% if 'image' in dataApp.cloud.filetype %}
+                        {% set fileType= 'image' %}
+                        {% set fileTypeText= 'image' %}
+                        {% set fileTypeCss= 'btn btn-primary' %}
+                    {% elseif 'video' in dataApp.cloud.filetype %}
+                        {% set fileType= 'video' %}
+                        {% set fileTypeText= 'Vidéo' %}
+                        {% set fileTypeCss= 'btn btn-white' %}
+                    {% elseif 'audio' in dataApp.cloud.filetype %}
+                        {% set fileType= 'audio' %}
+                        {% set fileTypeText= 'Audio' %}
+                        {% set fileTypeCss= 'btn btn-white' %}
+                    {% elseif ("application" in dataApp.cloud.fileType) or ("text" in dataApp.cloud.fileType) %}
+                        {% if ".doc" in dataApp.cloud.fileName %}
+                            {% set fileType= 'doc' %}
+                            {% set fileTypeText= 'Word' %}
+                            {% set fileTypeCss= 'btn btn-info' %}
+                        {% elseif ".xls" in dataApp.cloud.fileName %}
+                            {% set fileType= 'xls' %}
+                            {% set fileTypeText= 'Excel' %}
+                            {% set fileTypeCss= 'btn btn-success' %}
+                        {% elseif 'application/pdf' in dataApp.cloud.filetype %}
+                            {% set fileType= 'pdf' %}
+                            {% set fileTypeText= 'PDF' %}
+                            {% set fileTypeCss= 'btn btn-danger' %}
+                        {% elseif 'text' in dataApp.cloud.filetype %}
+                            {% set fileType= 'text' %}
+                            {% set fileTypeText= 'texte' %}
+                            {% set fileTypeCss= 'btn btn-black' %}
+                        {% else %}
+                            {% set fileType= 'divers' %}
+                            {% set fileTypeText= 'divers' %}
+                            {% set fileTypeCss= 'btn btn-warning' %}
+                        {% endif %}
+                    {% endif %}
+
+                    {%  set path = upload_directory ~ '/' ~ dataApp.cloud.fileName %}
+                    {%  set fileSize = this.getFileSize(path) %}
+
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 hidden element-item user_{{ CUser.user.id }} {{ fileType }}" data-date="{{ dataApp.creationdate|date("YmdHi") }}">
+                        <div class="item wow rollIn" data-wow-delay="0.25s" style="border-color: {{ cloudUsersColors[CUser.user.id] }}; color: {{ cloudUsersColors[CUser.user.id] }}">
+                            <p class="badge">{{ dataApp.creationdate|date("d/m/Y H:i") }}</p>
+                            <br />
+                            <span class="label label-primary">{{ fileSize }}</span>
+                            {#<div class="clear-fix hidden-xs">
+                                <i class="fa fa-2x fa-icon
+                                            {% if 'image' in dataApp.cloud.filetype %}fa-file-image-o
+                                            {% elseif 'video' in dataApp.cloud.filetype %}fa-video-camera
+                                            {% elseif ("application" in dataApp.cloud.fileType) or ("text" in dataApp.cloud.fileType) %}
+                                                {% if ".doc" in dataApp.cloud.fileName %}fa-file-word-o
+                                                {% elseif ".xls" in dataApp.cloud.fileName %}fa-file-excel-o
+                                                {% elseif 'application/pdf' in dataApp.cloud.filetype %}fa-file-pdf-o
+                                                {% elseif 'text' in dataApp.cloud.filetype %}fa-file-text-o
+                                                {% else %}fa-file
+                                                {% endif %}
+                                            {% endif %}
+                                                "></i>
+                            </div>#}
+                            <a class="{{ fileTypeCss }} downloadFile" href="{{ asset("uploads/" ~ dataApp.cloud.fileName) }}" download="{{ dataApp.cloud.fileName }}">
+                                <i class="fa fa-1x fa-download fa-fw" aria-hidden="true"></i>fichier {{ fileTypeText }}
+                            </a>
+                            {% if "image" in dataApp.cloud.fileType %}
+                            <img data-src="{{ asset("uploads/" ~ dataApp.cloud.fileName) }}" alt="{{ dataApp.creationdate|date("d/m/Y H:i") }} / {{ dataApp.cloud.fileName | replace ([token], ['']) }}" class="lazy itemCloud img-responsive imgModal img-circle">
+                            {% elseif "video" in dataApp.cloud.fileType %}
+                            <video controls class="itemCloud videoModal" preload="metadata">
+                                <source src="{{ asset("uploads/" ~ dataApp.cloud.fileName) }}" type="{{ dataApp.cloud.fileType }}" />
+                                <p>Votre navigateur ne supporte pas les éléments de type<code>vidéo</code>.</p>
+                            </video>
+                            {% elseif "audio" in dataApp.cloud.fileType %}
+                            <audio controls class="itemCloud audioModal">
+                                <source type="{{ dataApp.cloud.fileType }}" src="{{ asset("uploads/" ~ dataApp.cloud.fileName) }}"/>
+                                Votre navigateur ne supporte pas les éléments de type<code>audio</code>.
+                            </audio>
+                            {% endif %}
+                            {% if ("image" not in dataApp.cloud.fileType) and ("video" not in dataApp.cloud.fileType)  and ("audio" not in dataApp.cloud.fileType) %}
+                            <p class="clear-fix">
+                                <strong class="filename">{{ fileName }}</strong>
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="element-item nofiles">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            Aucun fichier disponible
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</section>
+<div id="imgModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="caption" class="label"></div>
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img">
+</div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/cloud.css') }}" rel="stylesheet">
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/drag.js') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
+    <script src="//npmcdn.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+    <script src="//npmcdn.com/isotope-packery@2/packery-mode.pkgd.js"></script>
+    <script src="{{ asset('assets/js/cloud.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('.lazy').lazy({
+                scrollDirection: 'vertical',
+                effect: 'fadeIn',
+                visibleOnly: true,
+                beforeLoad: function(element) {
+                    // called before an elements gets handled
+                    $(element).addClass('loader');
+                },
+                afterLoad: function(element) {
+                    // called after an element was successfully handled
+                    $(element).removeClass('loader');
+                },
+                onError: function(element) {
+                    // called whenever an element could not be handled
+                },
+                onFinishedAll: function() {
+                    // called once all elements was handled
+                }
+            });
+
+            // Get the modal
+            var $Modal = $('#imgModal');
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var $Imgs = $('.imgModal');
+            var $ModalImg = $("img", $Modal);
+            var $CaptionText = $("#caption", $Modal);
+            $Imgs.on('click', function(event) {
+                event.preventDefault();
+                var $This = $(this);
+                $ModalImg.attr('src', $This.attr('src'));
+                $CaptionText.html($This.attr('alt'));
+                //$Modal.show();
+                $Modal.modal('show');
+            });
+
+            // Get the <span> element that closes the modal
+            var $CloseBtn = $(".close", $Modal);
+            $CloseBtn.on('click', function(event) {
+                event.preventDefault();
+                //$Modal.hide();
+                $Modal.modal('hide');
+            });
+        });
+    </script>
+{% endblock %}

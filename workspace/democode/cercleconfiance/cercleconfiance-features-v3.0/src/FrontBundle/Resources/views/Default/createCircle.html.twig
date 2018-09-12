@@ -1,0 +1,182 @@
+{% extends "FrontBundle::layoutFront.html.twig" %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block title %} Créer un Cercle{% endblock %}
+
+
+{% block content %}
+    <section class="container marginBottom wow fadeInDown">
+        <div class="row btn-tools">
+            <div class="col-xs-6 text-left">
+                <a href="{{ path('accueil') }}" class="btn btn-default btn-back" title="Retour"><i class="fa fa-arrow-left fa-fw"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="section-header col-xs-8 col-xs-offset-2 col-sm-10 col-sm-offset-1 text-center">
+                <h2 class="section-title text-center">Créer un cercle</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="well well-sm alert-info text-center">
+                    <p>
+                        <button class="btn btn-primary btn-lg" type="button" data-toggle="collapse" data-target="#createCircleNew" aria-expanded="false" aria-controls="optionalsFields">
+                            Créer un <br class="visible-xs visible-sm"/><strong>« Cercle Confiance »</strong> <i class="fa fa-arrow-circle-o-down fa-fw"></i>
+                        </button>
+                        <br />
+                        dont le centre sera
+                        <br />
+                        <strong>une nouvelle personne</strong>
+                        <br />
+                        qui ne s'est jamais inscrite
+                    </p>
+                </div>
+            </div>
+            <div class="collapse {% if not form.vars.valid %}in {% endif %}col-sm-12" id="createCircleNew">
+                {{ form_start(form) }}
+                <div class="form well alert-info createCircle">
+                    <div class="row text-left">
+                        <div class="col-sm-6">
+                            <div class="form-group {% if form.user.name.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.name)}}
+                                {{ form_widget(form.user.name) }}
+                                {{ form_errors(form.user.name) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group {% if form.user.firstname.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.firstname)}}
+                                {{ form_widget(form.user.firstname) }}
+                                {{ form_errors(form.user.firstname) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group {% if form.user.email.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.email)}}
+                                {{ form_widget(form.user.email) }}
+                                {{ form_errors(form.user.email) }}
+                            </div>
+                            <div class="form-group {% if form.user.username.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.username)}}
+                                {{ form_widget(form.user.username) }}
+                                {{ form_errors(form.user.username) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group {% if form.user.plainPassword.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_widget(form.user.plainPassword) }}
+                                {{ form_errors(form.user.plainPassword) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group {% if form.circle.name.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.circle.name)}}
+                                {{ form_widget(form.circle.name) }}
+                                {{ form_errors(form.circle.name) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group {% if form.circle.number_circle_users.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.circle.number_circle_users)}}
+                                {{ form_widget(form.circle.number_circle_users) }}
+                                {{ form_errors(form.circle.number_circle_users) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group {% if form.circle.offer.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.circle.offer)}}
+                                {{ form_widget(form.circle.offer) }}
+                                {{ form_errors(form.circle.offer) }}
+                            </div>
+                        </div>
+
+                        {#<div class="col-sm-12">
+                            <div class="form-group {% if form.user.relation.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.relation)}}
+                                {{ form_widget(form.user.relation) }}
+                                {{ form_errors(form.user.relation) }}
+                            </div>
+                        </div>#}
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="form well alert-success createCircle">
+                    <div class="row text-left">
+                        <div class="col-sm-12">
+                            <div class="form-group {% if form.user.address.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.address)}}
+                                {{ form_widget(form.user.address) }}
+                                {{ form_errors(form.user.address) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group {% if form.user.phone_number.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.phone_number)}}
+                                {{ form_widget(form.user.phone_number) }}
+                                {{ form_errors(form.user.phone_number) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group {% if form.user.avatar.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.avatar)}}
+                                {{ form_widget(form.user.avatar) }}
+                                {{ form_errors(form.user.avatar) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 text-center">
+                            {{ form_row(form.save, { 'label': 'Créer le Cercle', 'attr': {'class': 'submitFormCC btn btn-default'} }) }}
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+
+            <div class="col-sm-12 hidden-xs text-center">
+                <strong class="text-primary">ou</strong>
+                <br />
+                <br />
+            </div>
+
+            <div class="col-sm-6">
+                <div class="well well-sm alert-warning text-center">
+                    <p>
+                        <a href="{{ path('verif_center_account') }}" class="btn btn-info btn-lg">
+                            Créer un <br class="visible-xs visible-sm"/><strong>« Cercle Confiance »</strong></a>
+                        <br />
+                        dont le centre sera
+                        <br />
+                        <strong>une personne déjà inscrite</strong>
+                        <br />
+                        vous connaissez les identifiants
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="well well-sm alert-success text-center">
+                    <p>
+                        <a href="{{ path('centreAdmin') }}" class="btn btn-success btn-lg">
+                            Créer un <br class="visible-xs visible-sm"/><strong>« Cercle Confiance »</strong>
+                        </a>
+                        <br />
+                        dont <strong>vous serez le centre</strong>
+                        <br class="hidden-xs"/>
+                        <br class="hidden-xs"/>
+                        <br class="hidden-xs"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

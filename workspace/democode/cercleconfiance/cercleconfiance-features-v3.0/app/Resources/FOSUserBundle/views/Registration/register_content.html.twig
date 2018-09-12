@@ -1,0 +1,93 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+<div class="container">
+    <div class="row userRegistrationRegister">
+        <div class="col-sm-8 col-sm-offset-2">
+            <header class="section-header">
+                <h2 class="section-title text-center wow fadeInDown">{{ 'registration.submit'|trans }}</h2>
+            </header>
+        </div>
+        <div class="col-sm-12 col-md-10 col-md-offset-1 form">
+            {{ form_start(form, { 'action': path('fos_user_registration_register'), 'attr': { 'class': 'fos_user_registration_register' } }) }}
+               <div class="alert alert-warning requiredFields row">
+                    <div class="col-sm-6">
+                        <div class="form-group {% if form.email.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.email)}}
+                            {{ form_widget(form.email) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+                        <div class="form-group {% if form.plainPassword.first.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_row(form.plainPassword.first) }}
+                        </div>
+                        <div class="form-group {% if form.plainPassword.second.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_row(form.plainPassword.second) }}
+                        </div>
+                        {{ form_errors(form.plainPassword) }}
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group {% if form.firstname.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.firstname)}}
+                            {{ form_widget(form.firstname) }}
+                            {{ form_errors(form.firstname) }}
+                        </div>
+                        <div class="form-group {% if form.name.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.name)}}
+                            {{ form_widget(form.name) }}
+                            {{ form_errors(form.name) }}
+                        </div>
+                        <div class="form-group {% if form.username.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.username)}}
+                            {{ form_widget(form.username) }}
+                            {{ form_errors(form.username) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <button class="btn btn-default btn-sm btn-block" type="button" data-toggle="collapse" data-target="#optionalsFields" aria-expanded="false" aria-controls="optionalsFields">
+                            Compléter <i class="fa fa-arrow-circle-o-down fa-fw"></i> <em>(optionnel)</em>
+                        </button>
+                    </div>
+                </div>
+                <div class="well collapse row" id="optionalsFields">
+                    <h3 class="text-primary">Complément d'informations</h3>
+                    {#<div class="col-sm-12">
+                        <div class="form-group {% if form.relation.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.relation)}}
+                            {{ form_widget(form.relation) }}
+                            {{ form_errors(form.relation) }}
+                        </div>
+                    </div>#}
+                    <div class="col-sm-12 {% if form.address.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                        {{ form_label(form.address)}}
+                        {{ form_widget(form.address) }}
+                        {{ form_errors(form.address) }}
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group {% if form.phone_number.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.phone_number)}}
+                            {{ form_widget(form.phone_number) }}
+                            {{ form_errors(form.phone_number) }}
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group {% if form.avatar.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.avatar)}}
+                            {{ form_widget(form.avatar) }}
+                            {{ form_errors(form.avatar) }}
+                        </div>
+                    </div>
+                    {{ form_rest(form) }}
+                </div>
+                <div class="row text-center">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <div class="form-group">
+                            <input class="btn btn-default btn-info btn-block" type="submit" value="{{ 'registration.submit'|trans }}" />
+                        </div>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

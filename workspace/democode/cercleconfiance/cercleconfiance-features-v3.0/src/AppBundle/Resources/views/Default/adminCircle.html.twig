@@ -1,0 +1,81 @@
+{% extends 'AppBundle::layoutAppli.html.twig' %}
+
+{% block title %}Bienvenue sur le Cercle{% endblock %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block content %}
+<section class="container marginBottom">
+    <div class="row btn-tools">
+        <div class="col-xs-6 text-left">
+            <a href="{{ path('appli', {'token': token}) }}" class="btn btn-default btn-back" title="Retour"><i class="fa fa-arrow-left fa-fw"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="section-header col-xs-6 col-xs-offset-3 col-sm-12 col-sm-offset-0 text-center ">
+            <h2 class="section-title text-center">Administration de votre cercle</h2>
+            <h3 class="hidden-xs">Vous avez la possibilité de gérer vos membres, vos cercles et les objets connectés</h3>
+        </div>
+    </div>
+
+    <div class="row text-center navAppli">
+        <div class="col-xs-6 col-sm-6 col-md-4">
+            <a class="thumbnail navImage" href="{{ path('listMembers', {'token': token}) }}"
+               data-toggle="tooltip" data-placement="top" title="Gestion Membres">
+                <i class="fa fa-user-plus"></i>
+                <p class="navImageTitle">Les Membres</p>
+            </a>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-4">
+            <a class="thumbnail navImage" href="{{ path('edit_offer', {'token': token}) }}"
+               data-toggle="tooltip" data-placement="top" title="Gestion Cercle">
+                <i class="fa fa-cog"></i>
+                <p class="navImageTitle">Infos Cercle</p>
+            </a>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-4">
+            <a class="thumbnail navImage" href="{{ path('objets', {'token': token}) }}"
+               data-toggle="tooltip" data-placement="top" title="Gestion Objets">
+                <i class="fa fa-wifi"></i>
+                <p class="navImageTitle">Les Objets</p>
+            </a>
+        </div>
+    </div>
+
+{%  if (circleUsers|length < 2) %}
+    <div class="row addUser Form">
+        {% if mailSent is defined %}
+            {% if mailSent == true %}
+                <div class="col-sm-6 col-sm-offset-3 alert alert-success ">
+                    Le mail a bien été envoyé à <strong>{{ invitEmail }}</strong> !
+                </div>
+            {% elseif mailSent == false %}
+                <div class="col-xs-10 col-xs-offset-1 alert alert-danger">Erreur! Le mail n'a pas été envoyé!</div>
+            {% endif %}
+        {% endif %}
+        <div class="col-sm-6 col-sm-offset-3">
+            <br />
+            <div class="well well-sm row">
+                <div class="col-sm-12">
+                    <strong class="text-danger"><i class="fa fa-exclamation-triangle fa-2x fa-fw"></i>Il n'y a actuellement aucun membre dans votre cercle.</strong>
+                    <br />
+                    <h3>Ajouter un membre au cercle</h3>
+                </div>
+                <div class="col-sm-12 text-center">
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.email)}}
+                        {{ form_widget(form.email) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+                    {{ form_row(form.envoyer, { 'label': 'Inviter', 'attr': {'class': 'btn btn-default btn-success'} }) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+</section>
+{% endblock %}

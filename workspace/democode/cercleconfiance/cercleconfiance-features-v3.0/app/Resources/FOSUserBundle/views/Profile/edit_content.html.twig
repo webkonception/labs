@@ -1,0 +1,95 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+<!--<a href="{{ path('accueil') }}" class="btn btn-default btn-back padder" title="Retour"><i class="fa fa-arrow-left fa-fw"></i></a>-->
+<div class="container">
+    <div class="row userProfileEdit">
+        <div class="col-sm-8 col-sm-offset-2">
+            <header class="section-header">
+                <h2 class="section-title text-center wow fadeInDown">{{ 'profile.edit.submit'|trans }} votre profil</h2>
+            </header>
+        </div>
+        <div class="col-sm-12 col-md-10 col-md-offset-1 form">
+            {% if not form.vars.valid %}
+                <div class="alert alert-error row">
+                    <p>Veuillez corriger les champs suivants :</p>
+                    {{ form_errors(form) }}
+                </div>
+            {% endif %}
+            {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+                <div class="alert alert-warning requiredFields row">
+                    <div class="col-sm-6">
+                        <div class="form-group {% if form.email.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.email)}}
+                            {{ form_widget(form.email) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+                        {#<div class="form-group {% if form.username.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.username)}}
+                            {{ form_widget(form.username) }}
+                            {{ form_errors(form.username) }}
+                        </div>#}
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group {% if form.current_password.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.current_password)}}
+                            {{ form_widget(form.current_password) }}
+                            {{ form_errors(form.current_password) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="well row" id="optionalsFields">
+                    <h3 class="text-primary">Complément d'informations</h3>
+                    {#<div class="col-sm-12">
+                        <div class="form-group {% if form.relation.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.relation)}}
+                            {{ form_widget(form.relation) }}
+                            {{ form_errors(form.relation) }}
+                        </div>
+                    </div>#}
+                    <div class="col-sm-6">
+                        <div class="form-group {% if form.firstname.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.firstname)}}
+                            {{ form_widget(form.firstname) }}
+                            {{ form_errors(form.firstname) }}
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group {% if form.name.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.name)}}
+                            {{ form_widget(form.name) }}
+                            {{ form_errors(form.name) }}
+                        </div>
+                    </div>
+                    <div class="col-sm-12 {% if form.address.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                        {{ form_label(form.address)}}
+                        {{ form_widget(form.address) }}
+                        {{ form_errors(form.address) }}
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group {% if form.phone_number.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.phone_number)}}
+                            {{ form_widget(form.phone_number) }}
+                            {{ form_errors(form.phone_number) }}
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group {% if form.avatar.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                            {{ form_label(form.avatar)}}
+                            {{ form_widget(form.avatar) }}
+                            {{ form_errors(form.avatar) }}
+                        </div>
+                    </div>
+                    {{ form_rest(form) }}
+                </div>
+                <p class="text-center">
+                    <a href="#" id="notification-button" class="text-primary">S'abonner aux Notifications</a>
+                </p>
+                <div class="form-group text-center">
+                    <input class="btn btn-default btn-info" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+<script src="{{ asset('assets/js/OneSignal/subscribeToNotifications.js') }}"></script>

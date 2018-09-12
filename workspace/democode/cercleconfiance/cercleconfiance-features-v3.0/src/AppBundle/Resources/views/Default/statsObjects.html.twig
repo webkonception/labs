@@ -1,0 +1,108 @@
+{% extends 'AppBundle::layoutAppli.html.twig' %}
+
+{% block content %}
+<section class="container-fluid marginBottom">
+    <div class="row btn-tools">
+        <div class="col-xs-6 text-left">
+            <a href="{{ path('appli', {'token': token}) }}" class="btn btn-default btn-back" title="Retour"><i class="fa fa-arrow-left fa-fw"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="section-header col-xs-8 col-xs-offset-2 col-sm-12 col-sm-offset-0 text-center ">
+            <h2 class="section-title text-center">Les objets connectés</h2>
+        </div>
+        <div class="section-header col-sm-8 col-sm-offset-2 col-xs12 col-xs-offset-0 text-center">
+            <h3>Sélectionner l'objet dont vous voulez voir le détail</h3>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-sm-2 col-xs-12">
+            <ul class="nav nav-tabs nav-stacked" role="tablist" id="myTabs">
+                {% for object in circleUser.objectEntries if object.access == true %}
+                    <li role="presentation" {% if loop.index == 1 %}class="active"{% endif %}>
+                        <a href="#{{ object.model.reference }}" aria-controls="{{ object.model.reference }}"
+                           role="tab" data-toggle="tab">{{ object.model.reference }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab-content col-sm-8 col-sm-offset-1 col-xs-12">
+            {% for object in circleUser.objectEntries if object.access == true %}
+                <div role="tabpanel" class="tab-pane fade{% if loop.first %} in active{% endif %}"
+                     id="{{ object.model.reference }}">
+                    {% if object.model.typeObject.type == "Temperature sensor" %}
+                        <canvas id="myChart"></canvas>
+                    {% elseif object.model.typeObject.type == "Smoke sensor" and object.access == true %}
+                        {% if object.model.dataObjects|length > 0 and object.model.dataObjects|last.data == 0 %}
+                            <i class="fa fa-check text-success"></i>
+                            <h3 class="text-success">Aucune fumée n'est détectée !</h3>
+                        {% else %}
+                            <i class="fa fa-close text-danger"></i>
+                            <h3 class="text-danger">Attention ! De la fumée est présente ! Incendie possible !</h3>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('assets/Chart.js-master/dist/Chart.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTabs a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+            let values = [];
+            {% for object in circleUser.objectEntries %}
+            {% for datas in object.model.dataObjects %}
+            {% if object.model.typeObject.type == "Temperature sensor" and object.access == true %}
+            values.push({{ datas.data }});
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            if (values.length == 0) {
+                $('#temperature').prepend("<h3>Vous n\'avez pas accès à ces données</h3>");
+            } else {
+                values = values.slice(values.length - 10);
+                let ctx = document.getElementById("myChart").getContext('2d');
+                let myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ["", "", "", "", "", "", "", "", "", ""],
+                        pointStyle: 'circle',
+                        datasets: [{
+                            label: 'Relevé de temperature',
+                            data: values,
+                            backgroundColor: [
+                                'rgba(54, 171, 226, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(28, 117, 188, 1)',
+                            ],
+                            borderWidth: 3
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        },
+                        tooltips: {
+                            mode: 'point'
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}

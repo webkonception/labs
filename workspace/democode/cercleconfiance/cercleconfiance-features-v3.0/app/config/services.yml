@@ -1,0 +1,52 @@
+parameters:
+
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    AppBundle\:
+            resource: '../../src/AppBundle/*'
+            exclude: '../../src/AppBundle/{Entity,Repository,Tests}'
+
+    app.form.profile:
+            class: AppBundle\Form\EditProfileType
+            tags:
+                - { name: form.type, alias: app_user_profile }
+    app.form.registration:
+            class: AppBundle\Form\RegistrationType
+            tags:
+                - { name: form.type, alias: app_user_registration }
+
+    user.form.registration:
+            class: UserBundle\Form\RegistrationFormType
+            arguments: [%fos_user.model.user.class%]
+            tags:
+                - { name: form.type, alias: user_registration }
+
+    user.file_uploader:
+            class: AppBundle\Services\FileUploader
+            arguments: ['%upload_directory%']
+
+    cloud.file_uploader:
+                class: AppBundle\Services\FileUploader
+                arguments: ['%upload_directory%']
+
+    user.doctrine_user_listener:
+            class: AppBundle\EventListener\UserUploadListener
+            arguments: ['@user.file_uploader']
+            tags:
+                - { name: doctrine.event_listener, event: prePersist }
+                - { name: doctrine.event_listener, event: preUpdate }
+                - { name: doctrine.event_listener, event: postLoad }
+                - { name: doctrine.event_listener, event: preRemove }
+
+    cloud.doctrine_cloud_listener:
+                class: AppBundle\EventListener\CloudUploadListener
+                arguments: ['@cloud.file_uploader']
+                tags:
+                    - { name: doctrine.event_listener, event: prePersist }
+                    - { name: doctrine.event_listener, event: preUpdate }
+                    - { name: doctrine.event_listener, event: postLoad }
+                    - { name: doctrine.event_listener, event: preRemove }

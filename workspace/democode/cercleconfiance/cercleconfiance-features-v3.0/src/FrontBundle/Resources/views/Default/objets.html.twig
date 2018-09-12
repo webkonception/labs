@@ -1,0 +1,175 @@
+    {% extends "FrontBundle::layoutFront.html.twig" %}
+
+{% block title %}Objets Connectés{% endblock %}
+{% block links %}
+    <!--<li class="scroll"><a href="/">Accueil</a></li>-->
+    <li class="scroll"><a href="{{ path('presentation') }}">A propos</a></li>
+    <li class="scroll"><a href="{{ path('services') }}">Services</a></li>
+    <li class="scroll active"><a href="{{ path('pres_objets') }}">Objets connectés</a></li>
+    <li class="scroll"><a href="{{ path('accueil') }}">Accès aux cercles</a></li>
+{% endblock %}
+{% block content %}
+    <section id="objects" >
+        <div class="container">
+
+            <div class="section-header objetsTitleFront">
+                <h2 class="section-title text-center wow fadeInDown">Les Objets Connectés</h2>
+            </div>
+
+            <article class="row">
+                <blockquote class="text-primary col-sm-12">
+                    <strong>Cercle Confiance</strong> propose le <u>« Lutrin numérique »</u> qui est à la fois un intégrateur d'objets connectés,
+                    <em><small>(cela veut dire que l'installation des objets connectés est facile, et que leur gestion se fait avec une seule interface)</small></em>
+                    et un amplificateur de communication.<small><em>(le son qui sort du lutrin est de d'excellente qualité, et vous pouvez voir les images sur un grand écran)</em></small>
+                    <br />
+                    Le Lutrin Numérique est géré par l'application Web Cercle Confiance.
+                    <img src="{{ asset('assets/img/objects/lutrin-numerique.png') }}" class="center-block img-responsive img-thumbnail" alt="lutrin numérique" />
+                </blockquote>
+
+                <blockquote class="text-primary col-sm-12">
+                    <strong>Les objets connectés sélectionnés par Cercle Confiance :</strong>
+                    <br />
+                    <br />
+                    Cercle Confiance vous propose une gamme d'objets connectés qui fonctionneront directement chez vous car ils sont compatibles avec le Lutrin numérique.
+                    <br />
+                    Il vous suffira de les brancher et de les valider sur le site internet Cercle Confiance.
+                    <br />
+                    Divers domaines d'application : <strong class="text-info"> Domotique et sécurité / Sport et Santé / Météo / ...</strong>
+                    <br />
+                </blockquote>
+
+                <div class="col-sm-4 text-center">
+                    <img src="{{ asset('assets/img/objects/assistance-personne.png') }}" class="center-block img-responsive" alt="boitier assistance personne" />
+                </div>
+                <div class="col-sm-4 text-center">
+                    <img src="{{ asset('assets/img/objects/balance-connectee.png') }}" class="center-block img-responsive" alt="balance connectée" />
+                </div>
+                <div class="col-sm-4 text-center">
+                    <img src="{{ asset('assets/img/objects/camera-surveillance.png') }}" class="center-block img-responsive" alt="camera de surveillance" />
+                </div>
+            </article>
+
+            {#<div class="row">
+                <div class="features">
+                    <h3>Domotique et sécurité</h3>
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="0ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-line-chart"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Camera de sécurité</h4>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="100ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-cubes"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Capteur incendie</h4>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="100ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-cubes"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Capteur de mouvement</h4>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="features">
+                    <h3>Sport et Santé</h3>
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="0ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-line-chart"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Capteur d'activité </h4>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="100ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-cubes"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Capteur de poids</h4>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="100ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-cubes"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Capteur de chute</h4>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="features">
+                    <h3>Météo</h3>
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="0ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-line-chart"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Capteur de température</h4>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="100ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-cubes"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Capteur de pluviométrie</h4>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="100ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-cubes"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Camera supplémentaire</h4>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+#}
+        </div><!--/.container-->
+    </section><!--/#services-->
+{% endblock %}

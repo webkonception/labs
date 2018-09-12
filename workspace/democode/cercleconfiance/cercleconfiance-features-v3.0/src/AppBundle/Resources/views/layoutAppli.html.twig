@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/owl.carousel.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/owl.transitions.css') }}" rel="stylesheet">
+    {#<link href="{{ asset('assets/css/prettyPhoto.css') }}" rel="stylesheet">#}
+    <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
+    {{ parent() }}
+    <link href="{{ asset('assets/css/frontStyle.css') }}?{{ date().timestamp }}" rel="stylesheet">
+{% endblock %}
+
+{% block navbar %}
+    <header id="header">
+        <nav id="main-menu" class="navbar navbar-default navbar-fixed-top navbar-appli" role="banner">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="navbar-header col-xs-2 col-xs-offset-0  col-sm-2 col-sm-offset-0 col-lg-offset-2 stopPaddLink">
+                        <a class="paddingLogoNav navbar-brand" href="/">
+                            <img src="{{ asset('assets/img/logos/logo-CERCLE-CONFIANCE-quadri.png') }}" alt="logo_cercle_confiance" class="logo">
+                        </a>
+                    </div>
+                    <div class="{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}col-xs-8 col-sm-8 col-lg-4 {% else %}col-xs-9 col-lg-6 {% endif %}text-center stopPaddLink">
+                        <a href="{{ path('appli', {'token': token}) }}" class="circle">
+                            <h1 class="respNavApp">{{ circleUser.circle.name }}</h1>
+                        </a>
+                        <a class="btn btn-md btn-info" href="{{ path('accueil') }}">
+                            <i class="fa fa-exchange"></i> Changer de cercle
+                        </a>
+                    </div>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <div class="{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}col-xs-2 col-sm-2 col-lg-2 {% endif %}text-center stopPaddLink user">
+                        <a href="{{ path('fos_user_profile_edit', {'token': token}) }}" class="btn btn-lg">
+                            <img src="{% if app.user.avatar != null %}{{ asset("uploads/" ~ app.user.avatar) }}{% else %}{{ asset("assets/img/avatar.png") }}{% endif %}" class="avatar img-circle" alt="{{ app.user.firstname }} {{ app.user.name }}">
+                            <i class="fa fa-2x fa-id-card-o" aria-hidden="true" title="{{ app.user.username }}"></i>
+                        </a>
+                        <a href="{{ path('fos_user_security_logout') }}" class="btn btn-lg logout" title="{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}">
+                            <i class="fa fa-2x fa-sign-out"></i>
+                        </a>
+                    </div>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+{% endblock %}
+
+{% block menu %}
+    <div class='menu closed'>
+        <div class="cloud button"><a href="{{ path('cloud', {'token': token}) }}" title="Vos fichiers"><i class="fa fa-folder-open fa-3x" aria-hidden="true"></i></a></div>
+        <div class="visio button"><a href="{{ path('visio', {'token': token}) }}" title="Appel visio"><i class="fa fa-video-camera fa-3x" aria-hidden="true"></i></a></div>
+        <div class="wall button"><a href="{{ path('mur', {'token': token}) }}" title="Mur"><i class="fa fa-comments-o fa-3x" aria-hidden="true"></i></a></div>
+        <div class="calendar button"><a href="{{ path('agenda', {'token': token}) }}" title="Agenda"><i class="fa fa-calendar fa-3x" aria-hidden="true"></i></a></div>
+        <div class="dashboard button"><a href="{{ path('agenda', {'token': token}) }}" title="Tableau de bord"><i class="fa fa-bar-chart-o fa-3x" aria-hidden="true"></i></a></div>
+        <div class="main button"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $(".menu").on('click',function(event){
+                event.preventDefault();
+                if($(this).hasClass("closed")) {
+                    $(this).nextAll('div').css('opacity','.125');
+                    $(this).parents('section').next('section').css('opacity','.125');
+                    $(this).toggleClass("closed");
+                    $(".main.button").html('<i class="fa fa-times fa-3x" aria-hidden="true"></i>');
+                    var $Links = $(this).find('.button a');
+                      $Links.each(function(i, element){
+                           $(element).on('click',function(event){
+                               event.preventDefault();
+                               window.location = $(this).attr('href');
+                           });
+                       });
+
+                } else {
+                    $(this).nextAll('div').css('opacity','1');
+                    $(this).toggleClass("closed");
+                    $(".main.button").html('<i class="fa fa-bars fa-2x" aria-hidden="true"></i>');
+                }
+            });
+        });
+    </script>
+    {#<script>
+        $(document).ready(function() {
+
+            var active1 = false;
+            var active2 = false;
+            var active3 = false;
+            var active4 = false;
+            var active5 = false;
+
+            $('.toolbar').on('mousedown touchstart', function() {
+                if (!active1) $(this).find('.tool_01').css({'background-color': 'rgb(194, 180, 153)', 'transform': 'translate(-25px,115px)'});
+                else $(this).find('.tool_01').css({'background-color': 'dimGray', 'transform': 'none'});
+                if (!active2) $(this).find('.tool_02').css({'background-color': 'rgb(194, 180, 153)', 'transform': 'translate(35px,95px)'});
+                else $(this).find('.tool_02').css({'background-color': 'darkGray', 'transform': 'none'});
+                if (!active3) $(this).find('.tool_03').css({'background-color': 'rgb(194, 180, 153)', 'transform': 'translate(80px,50px)'});
+                else $(this).find('.tool_03').css({'background-color': 'silver', 'transform': 'none'});
+                if (!active4) $(this).find('.tool_04').css({'background-color': 'rgb(194, 180, 153)', 'transform': 'translate(100px,-10px)'});
+                else $(this).find('.tool_04').css({'background-color': 'silver', 'transform': 'none'});
+                if (!active5) $(this).find('.tool_05').css({'background-color': 'rgb(194, 180, 153)', 'transform': 'translate(80px,-70px)'});
+                else $(this).find('.tool_05').css({'background-color': 'silver', 'transform': 'none'});
+                active1 = !active1;
+                active2 = !active2;
+                active3 = !active3;
+                active4 = !active4;
+                active5 = !active5;
+            });
+        });
+    </script>#}
+{% endblock %}
+
+{% block footer %}{% endblock %}

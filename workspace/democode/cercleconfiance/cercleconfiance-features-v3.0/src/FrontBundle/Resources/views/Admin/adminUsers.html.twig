@@ -1,0 +1,176 @@
+{% extends 'AppBundle::layoutAppli.html.twig' %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block title %}Gérer les membres du Cercle{% endblock %}
+{% block content %}
+<section class="container">
+    <div class="row btn-tools">
+        <div class="col-xs-6 text-left">
+            <a href="{{ path('admin', {'token': token}) }}" class="btn btn-default btn-back" title="Retour"><i class="fa fa-arrow-left fa-fw"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="section-header col-xs-8 col-xs-offset-2 col-sm-12 col-sm-offset-0 text-center">
+            <h2 class="section-title">Liste des membres du Cercle</h2>
+            <h4 class="hidden-xs">Voici la liste des membres de votre cercle et <br>leurs droits d'accès aux services et objets connectés</h4>
+        </div>
+    </div>
+
+    {% if mailSent is defined %}
+    <div class="row">
+        {% if mailSent == true %}
+        <div class="col-xs-10 col-xs-offset-1 alert alert-success ">
+            Le mail a bien été envoyé à <strong>{{ invitEmail }}</strong> !
+        </div>
+        {% elseif mailSent == false %}
+        <div class="col-xs-10 col-xs-offset-1 alert alert-danger">Erreur! Le mail n'a pas été envoyé!</div>
+        {% endif %}
+    </div>
+    {% endif %}
+    <div class="row text-center paneColor">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <ul class="nav nav-tabs row" role="tablist" id="tabMember">
+            {% for user in users %}
+                {#{% if loop.first %}
+                    <ul class="nav nav-tabs row" role="tablist" id="tabMember">
+                {% endif %}#}
+                <li role="presentation" class="col-xs-4 col-sm-2 {% if loop.first %}active{% endif %}">
+                    <a href="#{{ user.user.id }}"
+                       aria-controls="{{ user.user.id }}"
+                       role="tab" data-toggle="tab">
+                        <img src="{% if user.user.avatar != null %}{{ asset("uploads/" ~ user.user.avatar) }}{% else %}{{ asset("assets/img/avatar.png") }}{% endif %}" class="memberAvatar img-responsive img-circle" alt="{{ user.user.firstname }} {{ user.user.name }}">
+                    </a>
+                </li>
+                {#{% if loop.last %}
+                    </ul>
+                {% endif %}#}
+            {% endfor %}
+            {#{% if users|length < number_circle_users %}
+            {% set counter=users|length %}
+                {% for counter in users|length..number_circle_users-1 %}
+                    <li role="presentation" class="col-xs-4 col-sm-2">
+                        <img src="{{ asset("assets/img///logos/logo-CERCLE-CONFIANCE-niveauxgris.png") }}" class="memberAvatar img-responsive" alt="">
+                    </li>
+                {% endfor %}
+            {% endif %}#}
+            </ul>
+            <div class="tab-content row ">
+            {% for user in users %}
+                <div role="tabpanel" class="col-xs-12 tab-pane fade{% if loop.first %} in active{% endif %}" id="{{ user.user.id }}">
+                    <!--<img src="{% if user.user.avatar != null %}{{ asset("uploads/" ~ user.user.avatar) }}{% else %}{{ asset("assets/img/avatar.png") }}{% endif %}" class="memberAvatar img-circle" alt="avatar.png">-->
+                    <h3>{{ user.user.firstname }} {{ user.user.name }}</h3>
+
+                    <p>
+                        <small clas="text-primary">{{ user.user.email }}</small>
+                    </p>
+
+                    {% if user.adminCircle == false %}
+                    <div>
+                        <a href="{{ path('editMember', {'token': token ,'idUser': user.id }) }}"
+                           class="btn btn-default btn-edit"><i class="fa fa-edit"></i></a>
+                        {% if user.circleCenter == false %}
+                        <a href="{{ path('deleteMember', {'token': token ,'idUser': user.id }) }}"
+                           class="btn btn-default btn-delete"><i class="fa fa-trash-o"></i></a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <ul class="row list-group">
+                        <li class="col-sm-6 col-md-4 list-group-item">
+                            {% if user.CallAccess == true %}
+                                <h3>Visio <a class="fa fa-check green"></a></h3>
+                            {% else %}
+                                <h3>Visio <a class="fa fa-close red"></a></h3>
+                            {% endif %}
+                        </li>
+                        <li class="col-sm-6 col-md-4 list-group-item">
+                            {% if user.wallAccess == true %}
+                                <h3>Mur <a class="fa fa-check green"></a></h3>
+                            {% else %}
+                                <h3>Mur <a class="fa fa-close red"></a></h3>
+                            {% endif %}
+                        </li>
+                        <li class="col-sm-6 col-md-4 list-group-item">
+                            {% if user.cloudAccess == true %}
+                                <h3>Cloud <a class="fa fa-check green"></a></h3>
+                            {% else %}
+                                <h3>Cloud <a class="fa fa-close red"></a></h3>
+                            {% endif %}
+                        </li>
+                        <li class="col-sm-6 col-md-4 list-group-item">
+                            {% if user.agendaAccess == true %}
+                                <h3>Agenda <a class="fa fa-check green"></a></h3>
+                            {% else %}
+                                <h3>Agenda <a class="fa fa-close red"></a></h3>
+                            {% endif %}
+                        </li>
+
+                        {% for userObj in user.objectEntries %}
+                            <li class="col-sm-6 col-md-4 list-group-item">
+                                {% if userObj.Access == true %}
+                                    <h3>{{ userObj.model.reference }} <a class="fa fa-check green"></a></h3>
+                                {% else %}
+                                    <h3>{{ userObj.model.reference }} <a class="fa fa-close red"></a></h3>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    {% if user.adminCircle == false %}
+                    <div>
+                        <a href="{{ path('editMember', {'token': token ,'idUser': user.id }) }}"
+                           class="btn btn-default btn-edit"><i class="fa fa-edit"></i></a>
+                        {% if user.circleCenter == false %}
+                        <a href="{{ path('deleteMember', {'token': token ,'idUser': user.id }) }}"
+                           class="btn btn-default btn-delete"><i class="fa fa-trash-o"></i></a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        </div>
+    </div>
+    <hr />
+    {#{% if users|length < numberusers %}#}
+    {% if users|length < number_circle_users %}
+    <div class="row addUser Form">
+        <div class="col-xs-10 col-xs-offset-1 text-center well">
+            <h3>Ajouter un membre au cercle <em class="small btn btn-primary"><span class="badge">{{ number_circle_users - users|length }}</span> place{% if (number_circle_users - users|length > 1) %}s{% endif %} disponible{% if (number_circle_users - users|length > 1) %}s{% endif %}</em></h3>
+            {{ form_start(form) }}
+            <div class="row text-left">
+                <div class="col-sm-12 col-md-8">
+                    <div class="form-group">
+                        {{ form_label(form.email)}}
+                        {{ form_widget(form.email) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+                </div>
+                <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-0 text-center">
+                    {{ form_row(form.envoyer, { 'label': 'Inviter', 'attr': {'class': 'btn btn-default btn-success btn-block'} }) }}
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 text-center marginBottom">
+            <h3>Le nombre maximal ({{ number_circle_users }}) de membres du cercle est atteint !</h3>
+        </div>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tabMember a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+    </script>
+{% endblock %}

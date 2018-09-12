@@ -1,0 +1,46 @@
+{% extends "FrontBundle::layoutFront.html.twig" %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block title %} Rejoindre un Cercle{% endblock %}
+
+{% block content %}
+<section id="joinCircle">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2 class="section-title">Rejoindre le Cercle <br />&laquo;{{ circleName }}&raquo;</h2>
+        </div>
+
+        {% if error is defined %}
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <div class="alert alert-danger">
+                    {{ error }}
+                    {% if(back is defined) %}
+                        <a class="btn btn-primary pull-right" href="{{ path('fos_user_security_login') }}" title="{{ 'layout.login'|trans({}, 'FOSUserBundle') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            {{ form_start(form) }}
+            <div class="col-sm-4 col-sm-offset-2 form-group">
+                {{ form_label(form.username)}}
+                {{ form_errors(form.username) }}
+                {{ form_widget(form.username) }}
+            </div>
+            <div class="col-sm-4 form-group">
+                {{ form_label(form.password)}}
+                {{ form_errors(form.password) }}
+                {{ form_widget(form.password) }}
+            </div>
+            <div class="col-sm-4 col-sm-offset-4 text-center">
+                {{ form_row(form.submit, { 'label': 'Valider', 'attr': {'class': 'btn btn-default btn-success btn-block'} }) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+</section>
+{% endblock %}

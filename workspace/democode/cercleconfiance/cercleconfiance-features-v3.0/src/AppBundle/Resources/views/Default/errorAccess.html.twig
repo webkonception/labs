@@ -1,0 +1,9 @@
+{% extends 'FrontBundle::layoutFront.html.twig' %}
+
+{% block content %}
+    <div class="container text-center error">
+        <h1>Erreur</h1>
+        <p>Vous n'avez pas accès à cette partie du site !</p>
+        <a href="{{ path('home') }}" class="btn btn-default">Retourner à l'accueil</a>
+    </div>
+{% endblock %}

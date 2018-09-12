@@ -1,0 +1,56 @@
+{% extends 'AppBundle::layoutAppli.html.twig' %}
+{% block content %}
+<section class="container marginBottom">
+    <div class="row btn-tools">
+        <div class="col-xs-6 text-left">
+            <a href="{{ path('admin', {'token': token}) }}" class="btn btn-default btn-back" title="Retour"><i class="fa fa-arrow-left fa-fw"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="section-header col-xs-8 col-xs-offset-2 col-sm-12 col-sm-offset-0 text-center ">
+            <h2 class="section-title text-center">Vos Objets Connectés</h2>
+        </div>
+    </div>
+    <div class="row">
+        {% for object in objects %}
+        {% if loop.index0%3 == 0 %}
+    </div>
+    <div class="row">
+        {% endif %}
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail text-center objetThumb">
+                <img src="http://via.placeholder.com/150x150" alt="placeholder" class="left objImg">
+                <div class="caption">
+                    <div>
+                        <p>Reference: {{ object.model.reference }}</p>
+                        <p>{{ object.model.description }}</p>
+                        <p><a href="{{ object.model.docurl }}">Documentation</a></p>
+                        {% if object.access == 1 %}
+                            <p>Statut : Activé</p>
+                        {% else %}
+                            <p>Statut : Désactivé</p>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if object.access == 1 %}
+                            <a href="{{ path('admin_objets', {'token': object.circleuser.circle.token, 'objectId': object.model.id}) }}"><button class="btn btn-danger">Désactiver L'objet pour mon Cercle</button></a>
+                        {% else %}
+                            <a href="{{ path('admin_objets', {'token': object.circleuser.circle.token, 'objectId': object.model.id}) }}"><button class="btn btn-success">Réactiver L'objet pour mon Cercle</button></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+            <div class="thumbnail text-center alert alert-success">
+                <i class="fa fa-shopping-cart fa-4x" aria-hidden="true"></i>
+                <a><button class="btn btn-default">Acheter un nouvel objet</button></a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

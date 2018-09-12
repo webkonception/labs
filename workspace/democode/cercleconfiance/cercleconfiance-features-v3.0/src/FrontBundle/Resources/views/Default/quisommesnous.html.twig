@@ -1,0 +1,51 @@
+{% extends "FrontBundle::layoutFront.html.twig" %}
+
+{% block title %} Qui Sommes Nous ?{% endblock %}
+{% block links %}
+    <!--<li class="scroll"><a href="/">Accueil</a></li>-->
+    <li class="scroll active"><a href="{{ path('presentation') }}">A propos</a></li>
+    <li class="scroll"><a href="{{ path('services') }}">Services</a></li>
+    <li class="scroll"><a href="{{ path('pres_objets') }}">Objets connectés</a></li>
+    <li class="scroll"><a href="{{ path('accueil') }}">Accès aux cercles</a></li>
+{% endblock %}
+{% block content %}
+    <section id="about">
+        <div class="container">
+
+            <div class="section-header qsnSectionHeader">
+                <h2 class="section-title text-center wow fadeInDown">Qui Sommes Nous ?</h2>
+
+                <p class="text-center wow fadeInDown">Cercle Confiance est une SAS au capital de 70 K&euro; basée près d'Orléans, <br/>fondée par des entrepreneurs indépendants.</p>
+
+            </div>
+
+            <article class="row">
+                <h3 class="text-info col-sm-12">« Le projet Cercle Confiance » :</h3>
+                <br />
+                <blockquote class="text-primary col-sm-12">
+                    <strong class="lead">Ne vous est-il pas arrivé de vous dire :</strong>
+                    <br />
+                    <em>« je voudrais partager des informations en utilisant les possibilités techniques des réseaux sociaux, mais en réservant les informations à mes proches ? »</em>
+                    <br />
+                    <br />
+                    <strong><u>Cercle Confiance</u></strong>, c'est un réseau social <u>« restreint »</u>,
+                    dans lequel vous constituez un ou plusieurs cercles de personnes,
+                    familles, amis, collègues, avec lesquels vous allez partager des informations et des documents, dans la plus stricte confidentialité. 
+                    </em>
+                </blockquote>
+                <hr class="col-sm-12 text-primary" />
+                <blockquote class="text-primary col-sm-12">
+                    <strong class="lead">Mais ce n'est pas tout :</strong>
+                    <br />
+                    le <strong><u>« lutrin numérique »</u></strong> est une sorte de « box »,
+                    reliée à internet, qui vous permet d'agréger facilement des données issues d'objets connectés (domotique, santé), 
+                    d'amplifier les sons et les images reçues de vos cercles, et de partager les informations avec vos proches, un aidant, un médecin.
+                    <br />
+                    <br />
+                    C'est un outil qui élimine les distances entre les membres d'une famille.
+                </blockquote>
+            </article>
+
+        </div>
+    </section><!--/#about-->
+{% endblock %}

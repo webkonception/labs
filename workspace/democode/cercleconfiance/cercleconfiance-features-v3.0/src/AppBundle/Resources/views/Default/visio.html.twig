@@ -1,0 +1,462 @@
+{% extends 'AppBundle::layoutAppli.html.twig' %}
+{% block content %}
+
+<section class="container-fluid marginBottom{% if app.visio_enterprise is defined %} visio_enterprise{% endif %}">
+    <div class="row btn-tools">
+        <div class="col-xs-6 text-left">
+            <a href="{{ path('appli', {'token': token}) }}" class="btn btn-default btn-back" title="Retour"><i class="fa fa-arrow-left fa-fw" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="section-header col-xs-12 text-center ">
+            <h2 class="section-title text-center">Créer ou rejoindre <br class="visible-xs visible-sm"/>une visio-conférence</h2>
+        </div>
+
+        {#<div class="col-sm-10 col-sm-offset-1">
+            <div class="row well well-sm alert alert-info">
+                <blockquote class="text-center"><strong>Vous avez le choix :</strong></blockquote>
+                <div class="col-md-6 text-center">
+                    <a href="{{ path('verif_center_account') }}" class="btn btn-info btn-md">
+                        Retrouver tous les membres du cercle  <br />en visio-conférence
+                    </a>
+                </div>
+                <div class="col-md-6 text-center">
+                    <a href="{{ path('centreAdmin') }}" class="btn btn-success btn-md">
+                        Choisir un ou plusieurs membres du cercle <br />pour une visio-conférence
+                    </a>
+                </div>
+                <div class="col-sm-12 mobile">
+                    <p class="lead ">
+                        C'est votre première visio avec un smartphone ?
+                        <br />
+                        <strong>
+                            Vous devez télécharger l'appli Jitsi meet en suivant le lien google play ou apple store....
+                        </strong>
+                    </p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <a title="mobile ANDROID" href="https://play.google.com/store/apps/details?id=org.jitsi.meet" target="_blank">
+                                <img class="img-responsive" src="{{ asset("assets/img/google-play-badge.png") }}" alt="Disponible sur Google Play" />
+                            </a>
+                        </div>
+                        <div class="col-sm-6">
+                            <a title="mobile IOS" href="https://itunes.apple.com/us/app/jitsi-meet/id1165103905" target="_blank">
+                                <img class="img-responsive" src="{{ asset("assets/img/apple-store-badge.png") }}" alt="Télécharger dans l'App Store" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 mobile">
+                    <p class="text-center text-warning">
+                        Une fois l'application téléchargée ne tapez pas <strong>"ouvrir"</strong>
+                        <br />
+                        mais revenez à l'appli avec un <strong>"retour arrière"</strong>
+                    </p>
+                </div>
+            </div>
+        </div>#}
+
+        <div class="all col-xs-12" id="visioBtns">
+            <div class="row">
+                <div class="col-sm-6 text-center" id="visioAll">
+                    <blockquote class="bg-success">
+                        Pour accéder à <br /> une visio-conférence <br />
+                        ouverte <strong class="text-success">à tous les membres</strong> <br />du Cercle
+                        <br class="hidden-xs hidden-sm"/>
+                        <br />
+                        <button id="videoButtonJoin" data-roomName="{{ roomName ~ '_CC_' ~ token }}" class="btn btn-success btn-lg videoButton videoButtonJoin">
+                            Rejoindre
+                            <i class="fa fa-fw fa-sign-in" aria-hidden="true"></i>
+                        </button>
+                        <br class="visible-sm visible-md visible-lg" />
+                        <br class="visible-sm visible-md visible-lg" />
+                    </blockquote>
+
+                </div>
+                <div class="col-sm-1 text-center" id="or">
+                    <br class="hidden-xs"/>
+                    <br class="hidden-xs"/>
+                    <br class="hidden-xs"/>
+                    <strong>Ou</strong>
+                </div>
+                <div class="col-sm-5 text-center" id="visioMultiple">
+                    <blockquote>
+                        Pour choisir uniquement <br />
+                        <strong class="text-primary">un</strong> ou <strong class="text-primary">plusieurs</strong> <br />membres du Cercle,
+                        <br />
+                        commencez par les sélectionner puis,
+                        <br class="hidden-xs hidden-sm"/>
+                        <br />
+                        <button id="videoButtonCreate" data-roomName="{{ roomName ~ '_CC_' ~ token }}" class="btn btn-success btn-lg  videoButton videoButtonJoin disabled">
+                            Rejoindre
+                            <i class="fa fa-video-camera fa-fw" aria-hidden="true"></i>
+                        </button>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div id="panelHeading" class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            {#<h3 class="panel-title">Participants</h3>#}
+                            <form id="formVisio" action="#">
+                                {#{% if circleUserAdmin != null %} circleUserAdmin : {{ dump(circleUserAdmin) }} {% endif %}#}
+                                {#{% if circleUserCenter != null %} circleUserCenter.id : {{ dump(circleUserCenter.user.id) }} {% endif %}#}
+                                {#{% if circleUser != null %} circleUser.id : {{ dump(circleUser.user.id) }} {% endif %}#}
+                                {#{{ dump(CUsers) }}#}
+                                {#{{ dump(circleUsers) }}#}
+                                {#{{ dump(circleUser.circle) }}#}
+                                {#{{ dump(circleUser.user) }}#}
+                            <ul id="circleMembers" data-circleId="{{ token }}" class="nav nav-tabs circle-members">
+                                {% for CUser in circleUsers %}
+                                    {% set faUserIcon = 'fa-user-o' %}
+                                    {#<li role="presentation" class="{% if CUser.adminCircle %} circleUser_Admin {% elseif CUser.circleCenter %} circleUser_CircleCenter {% endif %}{% if CUser.user.id == circleUser.user.id %} active {% endif %}col-xs-2 col-sm-2 col-md-2 col-lg-2" style="width:calc(100%/{{ circleUsers|length }})">#}
+                                    {#<li role="presentation" class="{% if CUser.adminCircle %} circleUser_Admin {% elseif CUser.circleCenter %} circleUser_CircleCenter {% endif %}{% if CUser.user.id == circleUser.user.id %} active {% endif %}col-xs-2 col-sm-2 col-md-2 col-lg-2" style="{% if(circleUsers|length <= 4) %}width:calc(100%/{{ circleUsers|length }}){% else %}width:calc(100%/{{ circleUsers|length }}*2{% endif %}">#}
+                                    <li role="presentation" class="{% if CUser.adminCircle %} circleUser_Admin {% elseif CUser.circleCenter %} circleUser_CircleCenter {% endif %}{% if CUser.user.id == circleUser.user.id %} active {% endif %}col-xs-4 col-sm-3 col-md-2 col-lg-2">
+                                        <input
+                                        {% if CUser.user.id == circleUser.user.id %}
+                                            checked="checked" disabled="disabled"
+                                            class="current_user"
+                                        {#{% elseif CUser.circleCenter %}
+                                            checked="checked" disabled="disabled" #}
+                                        {% endif %}
+                                            type="checkbox" name="visio_member" value="{{ CUser.user.firstname }} {{ CUser.user.name|first|upper }}" data-member_id="{{ CUser.user.id }}"
+                                            id="member_{{ CUser.user.id }}" />
+                                        <label class="" for="member_{{ CUser.user.id }}"><span class="hidden-xs hidden-sm">{{ CUser.user.firstname }} {{ CUser.user.name|first|upper }}</span></label>
+                                        <a name="{{ (CUser.user.firstname ~ ' ' ~ CUser.user.name)|title|replace({'-': '', ' ':'_'}) }}" data-username="{{ CUser.user.userName }}" data-displayName="{{ CUser.user.firstname }} {{ CUser.user.name|first|upper }}">
+                                            {% if CUser.adminCircle and CUser.circleCenter %}
+                                                <i class="fa text-danger fa-user-md" aria-hidden="true"></i>
+                                                <i class="fa text-primary fa-user-circle-o" aria-hidden="true"></i>
+                                            {% elseif CUser.adminCircle %}
+                                                <i class="fa text-danger fa-user-md" aria-hidden="true"></i>
+                                            {% elseif CUser.circleCenter %}
+                                                <i class="fa text-primary fa-user-circle-o" aria-hidden="true"></i>
+                                            {% endif %}
+                                            <img src="{% if CUser.user.avatar != null %}{{ asset("uploads/" ~ CUser.user.avatar) }}{% else %}{{ asset("assets/img/avatar.png") }}{% endif %}" class="img-circle miniAvatar" alt="{{ CUser.user.firstname }} {{ CUser.user.name }}">
+                                            {#<span class="label label-default hidden-xs">{{ CUser.user.firstname }} {{ CUser.user.name|first|upper }}</span>#}
+                                            {#<button class="btn btn-default btn-default pull-right video"><i class="fa fa-video-camera" aria-hidden="true"></i></button>#}
+                                            {#<button class="btn btn-default pull-right phone"> <i class="fa fa-phone" aria-hidden="true"></i> </button>#}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row mobile">
+                        <div id="visio_room_link" class="col-xs-12 hidden text-center">
+                            <div class="col-xs-12 col-sm-4 col-sm-offset-2 text-center">
+                                <a href="#" class="btn btn-default btn-success btn-block" title="Accéder à la visio depuis l'application" target="_blank">Ouvrir dans l'Appli<i class="fa fa-fw fa-external-link" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 text-center">
+                                <a href="#" class="btn-reload text-primary" title="Recharger"><span class="fa-stack fa-lg" aria-hidden="true"><i class="fa fa-refresh fa-stack-2x" aria-hidden="true"></i></span></a>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 text-center">
+                            <blockquote class="alert alert-warning lead">
+                                C'est votre première visio avec un smartphone ?
+                                <br />
+                                <strong class="text-danger">
+                                    Vous devez télécharger l'appli Jitsi meet en suivant le lien
+                                    <a title="mobile ANDROID" href="https://play.google.com/store/apps/details?id=org.jitsi.meet" target="_blank" class="text-success">Google play</a>
+                                    ou <a title="mobile IOS" href="https://itunes.apple.com/us/app/jitsi-meet/id1165103905" target="_blank">Apple Store</a> ...
+                                </strong>
+                            </blockquote>
+                        </div>
+                        <div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-1 col-md-3 col-md-offset-2 text-center stopPaddLink">
+                            <a title="mobile ANDROID" href="https://play.google.com/store/apps/details?id=org.jitsi.meet" target="_blank">
+                                <img class="img-responsive" src="{{ asset("assets/img/google-play-badge.png") }}" alt="Disponible sur Google Play" />
+                            </a>
+                        </div>
+                        <div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-2 text-center stopPaddLink">
+                            <a title="mobile IOS" href="https://itunes.apple.com/us/app/jitsi-meet/id1165103905" target="_blank">
+                                <img class="img-responsive" src="{{ asset("assets/img/apple-store-badge.png") }}" alt="Télécharger dans l'App Store" />
+                            </a>
+                        </div>
+                        <div class="col-xs-12 text-center">
+                            <blockquote class="alert alert-info">
+                                Une fois l'application téléchargée ne tapez pas <strong class="text-danger">"ouvrir"</strong>
+                                <br />
+                                mais revenez à l'appli avec un <strong class="text-danger">"retour arrière"</strong>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="toolsVisio" class="hidden-xs col-sm-1 hidden text-center">
+                            <ul class="nav  nav-pills nav-stacked">
+                                <li><button id="toggleAudio" class="btn btn-default btn-primary on" title="Audio">
+                                        <span class="fa-stack fa-lg" aria-hidden="true">
+                                            <i class="fa fa-ban fa-stack-2x fade" aria-hidden="true"></i>
+                                            <i class="fa fa-microphone fa-stack-1x" aria-hidden="true"></i>
+                                        </span>
+                                    </button></li>
+                                <li><button id="toggleVideo" class="btn btn-default btn-primary on" title="Video">
+                                            <span class="fa-stack fa-lg" aria-hidden="true">
+                                              <i class="fa fa-ban fa-stack-2x fade" aria-hidden="true"></i>
+                                              <i class="fa fa-video-camera fa-stack-1x" aria-hidden="true"></i>
+                                            </span>
+                                    </button></li>
+                                <li><button id="toggleFilmStrip" class="btn btn-default btn-primary on" title="Videos membres">
+                                        <span class="fa-stack fa-lg" aria-hidden="true">
+                                          <i class="fa fa-ban fa-stack-2x fade" aria-hidden="true"></i>
+                                          <i class="fa fa-user-circle-o fa-stack-1x" aria-hidden="true"></i>
+                                        </span>
+                                    </button></li>
+                                <li><button id="toggleChat" class="btn btn-default btn-primary off" title="Chat">
+                                        <span class="fa-stack fa-lg" aria-hidden="true">
+                                          <i class="fa fa-ban fa-stack-2x fade" aria-hidden="true"></i>
+                                          <i class="fa fa-commenting fa-stack-1x" aria-hidden="true"></i>
+                                        </span>
+                                    </button></li>
+                                <li><button id="toggleContactList" class="btn btn-default btn-primary off" title="Liste de contact">
+                                        <span class="fa-stack fa-lg" aria-hidden="true">
+                                          <i class="fa fa-ban fa-stack-2x fade" aria-hidden="true"></i>
+                                          <i class="fa fa-address-book fa-stack-1x" aria-hidden="true"></i>
+                                        </span>
+                                    </button></li>
+                                <li><button id="toggleShareScreen" class="btn btn-default btn-primary off btn-enterprise" title="Partage d'écran">
+                                        <span class="fa-stack fa-lg" aria-hidden="true">
+                                            <i class="fa fa-ban fa-stack-2x fade" aria-hidden="true"></i>
+                                            <i class="fa fa-desktop fa-stack-1x" aria-hidden="true"></i>
+                                            <i class="fa fa-share-alt fa-stack-1x" aria-hidden="true"></i>
+                                        </span>
+                                    </button></li>
+                            </ul>
+                        </div>
+
+                        {% if app.visio_enterprise is defined %}
+                        <div id="visioContainer" class="col-xs-12 col-sm-7 col-md-7 hidden">
+                            <div id="Meet_{{ token }}"></div>
+                        </div>
+                        <div id="colChat" class="col-xs-12 col-sm-4 col-md-4 text-center hidden">
+                            <button id="videoButtonClose" class="btn btn-danger videoButton hidden">Quitter la Visio</button>
+                            <span class="btn btn-success">Participants : <span class="badge badge-success fade" type="text" id="videoParticipants"></span></span>
+                            <div id="discussion" class="hidden-xs text-left alert alert-warning small fade">
+                                <h4>Discussion</h4>
+                                <ul id="videoChat" class="list-group">
+                                </ul>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div id="visioContainer" class="col-xs-12 col-sm-11 text-center hidden">
+                            <div id="Meet_{{ token }}"></div>
+                            <div id="btnsVisio" class="row">
+                                <div class="col-xs-6 col-xs-offset-0 col-sm-2 col-sm-offset-4 col-md-3 col-md-offset-3">
+                                    <button id="videoButtonClose" class="btn btn-sm btn-danger videoButton hidden">Quitter la Visio</button>
+                                </div>
+                                <div class="col-xs-6 col-sm-2 col-md-3">
+                                    <span class="btn btn-sm btn-success">Participants : <span class="badge badge-success fade" type="text" id="videoParticipants"></span></span>
+                                </div>
+                                <div id="visio_loader" class="col-xs-12 col-sm-2 fade in text-warning">
+                                    <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw" aria-hidden="true"></i>
+                                    <span class="sr-only">Chargement...</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div id="panelFooter" class="panel-footer fade text-center">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input class="form-control alert alert-warning" type="text" id="videoEvents" value="" readonly />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {% if app.visio_enterprise is defined %}
+    <script src=//cdn.temasys.com.sg/adapterjs/0.15.0/adapter.screenshare.min.js"></script>
+    {%  else %}
+    <script src="https://cdn.temasys.com.sg/adapterjs/0.15.0/adapter.min.js"></script>
+    {% endif %}
+    <script src="//meet.jit.si/external_api.js"></script>
+
+    <script>
+        //////////////////////////////////////////////////////////////////////
+        var domain = "meet.jit.si";
+        //var domain = "cercle-confiance.fr";
+        ////var domain = "visio.cercle-confiance.fr";
+        var _token = '{{ token }}';
+        var _roomName = '{{ roomName }}_CC_' + _token;
+        var _userName = '{{ circleUser.user.username }}';
+        //var _displayName = '{{ circleUser.user.username }}';
+        //var _displayName = '{{ (circleUser.user.firstname ~ '-' ~ circleUser.user.name) |replace({' ':''}) }}';
+        var _displayName = '{{ circleUser.user.firstname ~ ' ' ~ circleUser.user.name|first|upper }}';
+        //var _formattedDisplayName = '{{ circleUser.user.firstname ~ ' ' ~ circleUser.user.name }}';
+        var _avatarURL = '{% if circleUser.user.avatar != null %}{{ asset("https://cercle-confiance.fr/uploads/" ~ circleUser.user.avatar) }}{% else %}{{ asset("https://cercle-confiance.fr/assets/img/avatar.png") }}{% endif %}';
+        var _parentNode = document.querySelector('#Meet_' + _token);
+        var _APP_NAME = 'Cercle Confiance Visio';
+
+        var _filmStripOnly = false;
+        var _TOOLBAR_BUTTONS = [
+            // main toolbar
+            'microphone', 'camera',
+            'desktop',
+            {% if app.visio_enterprise is defined %}
+            {% endif %}
+            'fullscreen',
+            'fodeviceselection',
+            'hangup',
+            'chat', //
+            'recording',
+            'sharedvideo',
+            {% if app.visio_enterprise is defined %}
+            // extended toolbar
+            'profile',
+            'contacts',
+            'etherpad',
+            {% endif %}
+            {% if (circleUser.user.id == circleUserAdmin.user.id) %}
+            'info',
+            "settings",
+            {% endif %}
+            'raisehand',
+            'videoquality',
+           // 'filmstrip',//
+        ];
+        //var _DEFAULT_REMOTE_DISPLAY_NAME = '{{ circleUser.user.username }}';
+        var _DEFAULT_REMOTE_DISPLAY_NAME = '{{ circleUser.user.firstname ~ ' ' ~ circleUser.user.name }}';
+        //////////////////////////////////////////////////////////////////////
+    </script>
+    <script src="{{ asset('assets/js/jitsi/visio.js') }}?{{ date().timestamp }}"></script>
+
+    <?php
+    $currentUserName = $currentCircleUser->getUser()->getFirstname() . ' ' . $currentCircleUser->getUser()->getName();
+    //$currentUserEmail = $currentCircleUser->getUser()->getEmail();
+
+    $filters = [
+    [
+    "field" => "tag", "key" => "user_id_circle_id", "relation" => "=", "value" => $circleId,
+    ],
+    [
+    "operator" => "AND"
+    ],
+    [
+    "field" => "tag", "key" => "user_id_circle_user_id", "relation" => "!=", "value" => $currentCircleUserId,
+    ]
+    ];
+
+    $mailer = $this->get('mailer');
+    $mailer_message = new \Swift_Message('Nouveau document ajouté dans le Cercle Confiance : ' . $circleName);
+    foreach($circleUsers as $circleUser){
+    /*if(true == $circleUser->getAdminCircle()){
+    $circleUserAdmin = $circleUser;
+    }
+    elseif(true == $circleUser->getCircleCenter()){
+    $circleUserCenter = $circleUser;
+    }else{
+    $circleUserOther[] = $circleUser;
+    }*/
+    if($currentCircleUserId != $circleUser->getUser()->getId()) {
+    $filters[] = [
+    "operator" => "OR"
+    ];
+    $filters[] = [
+    "field" => "tag", "key" => "user_id_circle_user_id", "relation" => "=", "value" => $circleUser->getUser()->getId(),
+    ];
+    $userEmail = $circleUser->getUser()->getEmail();
+    $userName = $circleUser->getUser()->getFirstname() . ' ' . $circleUser->getUser()->getName();
+    $mailer_message->addBcc($userEmail, $userName);
+    }
+    }
+
+    $locale = 'fr';
+    $title = 'Partage de fichiers | ' . date('d/m/Y H:i:s');
+    $headings = array(
+    "en" => 'Cloud | ' . date('d/m/Y H:i:s'),
+    $locale => $title
+    );
+    $msg = $currentUserName .'  a soumis un nouveau fichier "'. $fileName .'" dans le Cloud du Cercle Confiance "' . $circleName .'"';
+    $contents = [
+    'en' => $currentUserName .' submitted a new file "'. $fileName .'" in the Cloud of the Circle Trust "' . $circleName .'"',
+    $locale => $msg
+    ];
+
+    if ($currentCircleUser->getUser()->getFirstname() && $currentCircleUser->getUser()->getName()) {
+    $currentCircleUserFullname = $currentCircleUser->getUser()->getFirstname() . ' ' . $currentCircleUser->getUser()->getName();
+    } elseif ($currentCircleUser->getUser()->getFirstname()) {
+    $currentCircleUserFullname = $currentCircleUser->getUser()->getFirstname();
+    } elseif ($currentCircleUser->getUser()->getName()) {
+    $currentCircleUserFullname = $currentCircleUser->getUser()->getName();
+    } elseif ($currentCircleUser->getUser()->getUserName()) {
+    $currentCircleUserFullname = $currentCircleUser->getUser()->getUserName();
+    } else {
+    $currentCircleUserFullname = 'inconnu';
+    }
+    $currentCircleUserFullname = preg_replace('/\s+/', '_', $currentCircleUserFullname . '_' . $currentCircleUserId);
+
+    //$url = 'https://cercle-confiance.fr' . $this->generateUrl('cloud', ['token'=>$circle->getToken()]) . '#' . $currentCircleUserId;
+    $url = 'https://cercle-confiance.fr' . $this->generateUrl('cloud', ['token'=>$circle->getToken()]) . '#' . $currentCircleUserFullname;
+    $web_buttons = [];
+    array_push($web_buttons, [
+    "id" => "cloud-button",
+    "text" => 'Accéder au Cloud du Cercle Confiance ' . $circleName,
+    "icon" => "",
+    "url" => $url
+    ]);
+    $notificationType = 'cloud-feature-' . $circle->getToken();
+    $uniqId = uniqid($notificationType . '_' . time());
+    $messageToSend = [
+    'disable_badge_clearing' => true,
+    'web_push_topic' => $uniqId,
+    'notificationType' => $notificationType,
+    'url' => $url,
+    'headings' => $headings,
+    'filters' => $filters,
+    'contents' => $contents,
+    'web_buttons' => $web_buttons,
+    'android_group' => $notificationType,
+    'android_group_message' => [
+    "en" => "You have $[notif_count] new messages",
+    'fr' => "Vous avez $[notif_count] nouveau(x) message(s)",
+    ],
+    'ios_badgeType' => 'Increase',
+    'ios_badgeCount' => 1
+    ];
+    if(preg_match('/image/', $cloud->getFileType())) {
+    $messageToSend['chrome_web_image'] = 'https://cercle-confiance.fr/' . 'uploads/' . $cloud->getFileName();
+    }
+    $response = $this->sendMessage($messageToSend);
+    $return["allresponses"] = $response;
+    $return = json_encode( $return);
+
+    ?>
+    <script>
+        var website_name    = 'Cercle Confiance';
+        var msg             = "Bonjour {{ app.user.firstname|lower|capitalize ~ " " ~ app.user.name|upper }}, nous vous remercions de cette nouvelle visite !";
+        var website_url     = 'https://cercle-confiance.fr/';
+        var website_icon    = 'https://cercle-confiance.fr/assets/img/logos/logo-CERCLE-CONFIANCE-quadri.png';
+        var notificationType = 'welcome-feature';
+        var buttons         = [
+            {
+                /* Choose any unique identifier for your button. The ID of the clicked button 			 is passed to you so you can identify which button is clicked */
+                id: 'about-button',
+                /* The text the button should display. Supports emojis. */
+                text: 'A propos',
+                /* A valid publicly reachable URL to an icon. Keep this small because it's 				 downloaded on each notification display. */
+                //icon: '//cercle-confiance.fr/assets/img/about.png',
+                /* The URL to open when this action button is clicked. See the sections below 			 for special URLs that prevent opening any window. */
+                url: 'https://cercle-confiance.fr/presentation'
+            },
+            {
+                id: 'cercles',
+                text: 'Accès aux cercles',
+                //icon: 'https://cercle-confiance.fr/assets/img/about.png',
+                url: 'https://cercle-confiance.fr/cercles/'
+            }
+        ];
+    </script>
+    <script src="{{ asset('assets/js/OneSignal/pushNotification.js') }}"></script>
+
+{% endblock %}

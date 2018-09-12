@@ -1,0 +1,114 @@
+{% extends "FrontBundle::layoutFront.html.twig" %}
+
+{% block links %}
+    <!--<li id="navAcc" class="scroll active"><a href="/">Accueil</a></li>-->
+    <li id="navQSN" class="scroll"><a href="#intro" title="A propos">A propos</a></li>
+    <li id="navServ" class="scroll"><a href="#serve" title="Services">Services</a></li>
+    <li id="navObj" class="scroll"><a href="#object" title="Objets connectés">Objets connectés</a></li>
+    <li class="scroll"><a href="{{ path('accueil') }}" title="Accès aux cercles">Accès aux cercles</a></li>
+{% endblock %}
+
+{% block content %}
+    <section id="intro">
+        <div class="container">
+
+            <div class="row">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <div class="col-xs-12 col-sm-4 wow fadeInDown text-center pull-right">
+                        <div class="alert alert-success">
+                            <a class="text-success" href="{{ path('fos_user_profile_edit') }}" title="{{ 'layout.logged_in_as'|trans({'%username%':app.user.firstname|lower|capitalize ~ " " ~ app.user.name|upper}, 'FOSUserBundle') }}">
+                                <u>{{ 'layout.logged_in_as'|trans({'%username%':app.user.firstname|lower|capitalize ~ " " ~ app.user.name|upper}, 'FOSUserBundle') }}</u>
+                            </a>
+                            <hr/>
+                            <a class="btn btn-success btn-block" href="{{ path('accueil') }}">Accès aux cercles</a>
+                        </div>
+                        <hr/>
+                        <a class="btn btn-danger btn-block" href="{{ path('fos_user_security_logout') }}" title="{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                        <br class="hidden-xs" />
+                        <hr class="visible-xs" />
+                    </div>
+                {% else %}
+                    <div class="col-xs-12 col-sm-4 col-sm-offset-0 col-md-3 col-md-offset-1 wow fadeInDown text-center pull-right">
+                        <br class="hidden-xs" />
+                        <a class="btn btn-info btn-block btn-lg" href="{{ path('fos_user_security_login') }}" title="{{ 'layout.login'|trans({}, 'FOSUserBundle') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                        <br class="hidden-xs" />
+                        <hr/>
+                        <br class="hidden-xs" />
+                        <a class="btn btn-success btn-block" href="{{ path('fos_user_registration_register') }}" title="{{ 'layout.register'|trans({}, 'FOSUserBundle') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+                        <br class="hidden-xs" />
+                        <hr class="visible-xs" />
+                    </div>
+                {% endif %}
+                <div class="col-xs-12 col-sm-8 pull-left">
+                    <div class="jumbotron bg-info wow fadeInDown">
+                        <p class="lead text-justify text-primary">
+                            Cercle Confiance propose à des groupes restreints, qu’ils soient familiaux, professionnels ou associatifs,
+                            de communiquer très facilement sur des réseaux internet dédiés et sécurisés.
+                            <br>
+                            C’est un réseau social réservé, sans publicité, sans revente de vos données, sécurisé.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 wow fadeInRight">
+                    <p>
+                        <strong class="text-primary">Chaque Cercle de Confiance propose :</strong>
+                    </p>
+                    <ul class="nostyle morepadding">
+                        <li><i class="fa fa-check-square"></i> Une visiophonie du groupe</li>
+                        <li><i class="fa fa-check-square"></i> Le partage de fichiers (notamment des photos)</li>
+                        <li><i class="fa fa-check-square"></i> Un agenda</li>
+                        <li><i class="fa fa-check-square"></i> Un mur</li>
+                        <li><i class="fa fa-check-square"></i> Eventuellement des informations issues d’objets connectés (droits restreints ou étendus selon les membres)</li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 wow fadeInLeft">
+                    <p>
+                        <strong class="text-primary">Chaque membre peut être inscrit à plusieurs Cercles.</strong>
+                    </p>
+                    <p>
+                        Cercle Confiance propose un service de liaisons visio, d’échange et de stockage sécurisé pour un prix forfaitaire mensuel.
+                    </p>
+
+                    <p>
+                        Cercle Confiance vend des objets connectés et le « lutrin numérique », un objet innovant qui intègre les flux de données issus des objets connectés et amplifie le son et l’image pour une meilleure interaction.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    <script>
+        var website_name    = 'Cercle Confiance';
+        var msg             = "Bonjour {{ app.user.firstname|lower|capitalize ~ " " ~ app.user.name|upper }}, nous vous remercions de cette nouvelle visite !";
+        var website_url     = 'https://cercle-confiance.fr/';
+        var website_icon    = 'https://cercle-confiance.fr/assets/img/logos/logo-CERCLE-CONFIANCE-quadri.png';
+        var notificationType = 'welcome-feature';
+        var buttons         = [
+                                {
+                                    /* Choose any unique identifier for your button. The ID of the clicked button 			 is passed to you so you can identify which button is clicked */
+                                    id: 'about-button',
+                                    /* The text the button should display. Supports emojis. */
+                                    text: 'A propos',
+                                    /* A valid publicly reachable URL to an icon. Keep this small because it's 				 downloaded on each notification display. */
+                                    //icon: '//cercle-confiance.fr/assets/img/about.png',
+                                    /* The URL to open when this action button is clicked. See the sections below 			 for special URLs that prevent opening any window. */
+                                    url: 'https://cercle-confiance.fr/presentation'
+                                },
+                                {
+                                    id: 'cercles',
+                                    text: 'Accès aux cercles',
+                                    //icon: 'https://cercle-confiance.fr/assets/img/about.png',
+                                    url: 'https://cercle-confiance.fr/cercles/'
+                                }
+                            ];
+    </script>
+    <script src="{{ asset('assets/js/OneSignal/pushWelcome.js') }}"></script>
+    {% endif %}
+    <script src="{{ asset('assets/js/scroll.js') }}"></script>
+{% endblock %}

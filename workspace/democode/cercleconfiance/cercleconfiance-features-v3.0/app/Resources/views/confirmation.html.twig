@@ -1,0 +1,9 @@
+<h2>Cercle Confiance - Confirmation</h2>
+
+<p>
+    Bonjour {% if adminName is defined %}{{ adminName }}{% endif %}
+    <br />
+    {{ invitName }} a validé son inscription au Cercle Confiance "<strong>{{ circleName }}</strong>".
+    <br />
+    <strong style="font-size:1em;color:#337ab7;">"<a href="{{ basepath }}{{ token }}/invit">Accéder au Cercle Confiance {{ circleName }}</a>"</strong>
+</p>

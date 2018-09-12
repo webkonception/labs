@@ -1,0 +1,111 @@
+{% extends 'AppBundle::layoutAppli.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block title %}Bienvenue sur le Cercle{% endblock %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="row text-center navAppli">
+          <div class="cols_divide_sm_by_2">
+              {%  if circleUsers|length > 1 %}
+              {% if circleUser.wallaccess == true %}
+                  <div class="col-xs-4 col-sm-6 col-md-4">
+                      <a class="thumbnail navImage" href="{{ path('mur', {'token': token}) }}">
+                          <i class="fa fa-comments-o pictoColor"></i>
+                          <p class="navImageTitle">Mur</p>
+                      </a>
+                  </div>
+              {% endif %}
+              {% if circleUser.callaccess == true %}
+                  <div class="col-xs-4 col-sm-6 col-md-4">
+                      <a class="thumbnail navImage" href="{{ path('visio', {'token': token}) }}"
+                         data-toggle="tooltip" data-placement="top" title="Visio">
+                          <i class="fa fa-video-camera pictoColor"></i>
+                          <p class="navImageTitle">Appel visio</p>
+                      </a>
+                  </div>
+              {% endif %}
+              {% if circleUser.cloudaccess == true %}
+                  <div class="col-xs-4 col-sm-6 col-md-4">
+                      <a class="thumbnail navImage" href="{{ path('cloud', {'token': token}) }}">
+                          <i class="fa fa-folder-open pictoColor"></i>
+                          <p class="navImageTitle">Vos fichiers</p>
+                      </a>
+                  </div>
+              {% endif %}
+              {% if circleUser.agendaaccess == true %}
+                  <div class="col-xs-4 col-sm-6 col-md-4">
+                      <a class="thumbnail navImage" href="{{ path('agenda', {'token': token}) }}">
+                          <i class="fa fa-calendar pictoColor"></i>
+                          <p class="navImageTitle">Agenda</p>
+                      </a>
+                  </div>
+              {% endif %}
+              <div class="col-xs-4 col-sm-6 col-md-4">
+                  <a class="thumbnail navImage" href="{{ path('show_objects', {'token': token}) }}">
+                      <i class="fa fa-bar-chart-o pictoColor"></i>
+                      <p class="navImageTitle">Tableau de bord</p>
+                  </a>
+              </div>
+              {% else %}
+                {% if mailSent is defined %}
+                  {% if mailSent == true %}
+                      <div class="col-xs-12 alert alert-success ">
+                          Le mail a bien été envoyé à <strong>{{ invitEmail }}</strong> !
+                      </div>
+                  {% elseif mailSent == false %}
+                      <div class="col-xs-12 alert alert-danger">Erreur! Le mail n'a pas été envoyé!</div>
+                  {% endif %}
+                {% endif %}
+              <div class="col-xs-4 col-sm-6 col-md-8">
+                  <br />
+                  <div class="well well-sm row">
+                      <div class="col-sm-12">
+                          <strong class="text-danger"><i class="fa fa-exclamation-triangle fa-2x fa-fw"></i>Il n'y a actuellement aucun membre dans votre cercle.</strong>
+                            <br />
+                          <h3>Ajouter un membre au cercle</h3>
+                      </div>
+                      <div class="col-sm-12 text-center">
+                      {{ form_start(form) }}
+                          <div class="form-group">
+                              {{ form_label(form.email)}}
+                              {{ form_widget(form.email) }}
+                              {{ form_errors(form.email) }}
+                          </div>
+                          {{ form_row(form.envoyer, { 'label': 'Inviter', 'attr': {'class': 'btn btn-default btn-success'} }) }}
+                      {{ form_end(form) }}
+                      </div>
+                  </div>
+              </div>
+              {% endif %}
+              {% if circleUser.adminCircle == 1 %}
+                  <div class="col-xs-4 col-sm-6 col-md-4">
+                      <a class="thumbnail navImage" href="{{ path('admin', {'token': token}) }}">
+                          <i class="fa fa-cogs pictoColor"></i>
+                          <p class="navImageTitle">Administration</p>
+                      </a>
+                  </div>
+              {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        var user_type = 'free';
+        var user_classifier = {% if circleUser.circleCenter %}'center_circle'{% elseif circleUser.adminCircle == 1 %}'administrator'{% else %}'member'{% endif %};
+        var user_privileges = {% if circleUser.adminCircle == 1 %}'administrator'{% else %}'member'{% endif %};
+        var user_id_circlename = '{{ circleUser.circle.name }}';
+        var user_id_circle_id = '{{ circleUser.circle.id }}';
+        var user_id_circle_user_id = '{{ circleUser.user.id }}';
+        var real_name = "{{ app.user.firstname|lower|capitalize ~ " " ~ app.user.name|upper }}";
+        var first_name = "{{ app.user.firstname|lower|capitalize }}";
+        var last_name = "{{ app.user.name|upper }}";
+        //var salutation =  'M.';
+        var user_email = '{{ app.user.email|lower }}';
+    </script>
+    <script src="{{ asset('assets/js/OneSignal/sendTags.js') }}"></script>
+{% endblock %}

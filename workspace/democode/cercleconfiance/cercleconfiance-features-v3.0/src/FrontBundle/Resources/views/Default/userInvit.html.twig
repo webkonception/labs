@@ -1,0 +1,16 @@
+{% extends "FrontBundle::layoutFront.html.twig" %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block title %} Créer un Cercle{% endblock %}
+
+
+{% block content %}
+
+    <h3>s'enregistrer</h3>
+
+    {{ form_start(form) }}
+
+    {{ form_end(form) }}
+
+{% endblock %}

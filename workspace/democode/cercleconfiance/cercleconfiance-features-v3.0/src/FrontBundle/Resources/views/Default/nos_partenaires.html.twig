@@ -1,0 +1,111 @@
+{% extends "FrontBundle::layoutFront.html.twig" %}
+
+{% block title %}Nos partenaires{% endblock %}
+{% block links %}
+    <!--<li class="scroll"><a href="/">Accueil</a></li>-->
+    <li class="scroll"><a href="{{ path('presentation') }}">A propos</a></li>
+    <li class="scroll active"><a href="{{ path('services') }}">Services</a></li>
+    <li class="scroll"><a href="{{ path('pres_objets') }}">Objets connectés</a></li>
+    <li class="scroll"><a href="{{ path('accueil') }}">Accès aux cercles</a></li>
+{% endblock %}
+{% block content %}
+    <section id="partenaires">
+        <div class="container">
+
+            <div class="section-header serviceTitle">
+                <h2 class="section-title text-center wow fadeInDown">Nos partenaires</h2>
+                <div class="row text-center">
+                    <div class="col-sm-6 wow zoomIn" data-wow-duration="1s" data-wow-offset="100">
+                        <figure class="jumbotron text-center">
+                            <a href="http://www.tech-orleans.fr/" class="blank" title="Orléans Val de Loire Technopole">
+                                <img class="center-block" src="{{ asset('assets/img/logos/partenaires/logo_orleans-val-de-loire-technopole.jpg') }}" alt="Orléans Val de Loire Technopole" />
+                            </a>
+                            <br />
+                            <figcaption>
+                                <strong>Orléans Val de Loire Technopole</strong>
+                                <br />
+                                Accompagnement à la création et au développement des entreprises.
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-sm-6 wow zoomIn" data-wow-duration="1s" data-wow-offset="100">
+                        <figure class="jumbotron text-center">
+                            <a href="http://nekoe.fr/" class="blank" title="Nekoé Cluster">
+                                <img class="center-block" src="{{ asset('assets/img/logos/partenaires/logo_hd_nekoe_cluster.jpg') }}" alt="Nekoé Cluster" />
+                            </a>
+                            <br />
+                            <figcaption>
+                                <strong>Nekoé Cluster</strong>
+                                <br />
+                                L'innovation par les services
+                                <br />
+                                <br />
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-sm-6 wow zoomIn" data-wow-duration="1s" data-wow-offset="100">
+                        <figure class="jumbotron text-center">
+                            <a href="https://wildcodeschool.fr/" class="blank" title="Wild Code School">
+                                <img class="center-block" src="{{ asset('assets/img/logos/partenaires/logo_wild-code-school_orange_small.jpg') }}" alt="Wild Code School" />
+                            </a>
+                            <br />
+                            <figcaption>
+                                <strong>Wild Code School</strong>
+                                <br />
+                                Formation aux métiers numériques
+                                <br />
+                                <br />
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-sm-6 wow zoomIn" data-wow-duration="1s" data-wow-offset="100">
+                        <figure class="jumbotron text-center">
+                            <a href="http://www.revame.com/" class="blank" title="Groupe Revame">
+                                <img class="center-block" src="{{ asset('assets/img/logos/partenaires/logo_revame.jpg') }}" alt="Groupe Revame" />
+                            </a>
+                            <br />
+                            <figcaption>
+                                <strong>Groupe Revame</strong>
+                                <br />
+                                Créateur d'Innovations Durables !
+                                <br />
+                                <br />
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-sm-6 wow zoomIn" data-wow-duration="1s" data-wow-offset="100">
+                        <figure class="jumbotron text-center">
+                            <br />
+                            <br />
+                            <a href="http://www.patrickjouin.com/" class="blank" title="Patrick Jouin Id">
+                                <img class="img-responsive center-block" src="{{ asset('assets/img/logos/partenaires/logo_patrick-jouin-id.png') }}" alt="Patrick Jouin Id" />
+                            </a>
+                            <br />
+                            <figcaption>
+                                <strong>Patrick Jouin Id</strong>
+                                <br />
+                                Design produit & Design industriel
+                                <br />
+                                <br />
+                                <br />
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-sm-6 wow zoomIn" data-wow-duration="1s" data-wow-offset="100">
+                        <figure class="jumbotron text-center">
+                            <a href="https://web.konception.fr/" class="blank" title="Web'Konception">
+                                <img class="center-block" src="{{ asset('assets/img/logos/partenaires/logo_web-konception.png') }}" alt="Web'Konception" />
+                            </a>
+                            <br />
+                            <figcaption>
+                                <strong>Web'Konception</strong>
+                                <br />
+                                Une site internet à votre mesure
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

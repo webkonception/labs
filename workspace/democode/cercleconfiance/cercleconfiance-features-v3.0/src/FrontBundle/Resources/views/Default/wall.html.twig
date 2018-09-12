@@ -1,0 +1,425 @@
+{% extends "AppBundle::layoutAppli.html.twig" %}
+
+{% block title %} Mur{% endblock %}
+
+{% block content %}
+   <section class="container">
+        {#{% block menu %}{{ parent() }}{% endblock %}#}
+        <div class="row btn-tools">
+            {#<div class="toolbar">
+                <ul>
+                    <li class="tool tool_01"><i class="fa fa-bar-chart-o"></i></li>
+                    <li class="tool tool_02"><i class="fa fa-calendar"></i></li>
+                    <li class="tool tool_03"><i class="fa fa-folder-open"></i></li>
+                    <li class="tool tool_04"><i class="fa fa-users"></i></li>
+                    <li class="tool tool_05"><i class="fa fa-comments-o"></i></li>
+                    <li class="mask"><i class="fa fa-home fa-3x"></i></li>
+                </ul>
+            </div>#}
+            <div class="col-xs-3 text-left">
+                <a href="{{ path('appli', {'token': token}) }}" class="btn btn-default btn-back" title="Retour"><i class="fa fa-arrow-left fa-fw"></i></a>
+            </div>
+
+            <div class="col-xs-9 text-right">
+                <a name="refresh" href="#" class="btn btn-default btn-refresh" title="Rafraichir"><i class="fa fa-refresh fa-fw"></i></a>
+                <button type="button" id="openModal" class="btn btn-default btn-primary btn-write" data-toggle="modal" data-target="#writeModal" title="Ecrire">
+                    Écrire
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="section-header col-xs-12 text-center">
+                <h2 class="section-title">Le Mur</h2>
+                <h3 class="hidden-xs">Vous avez la possibilité d'envoyer des messages aux autres membres du cercle</h3>
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade in" role="alert">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span></a>
+                        <strong>{{ message }}</strong>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div id="wallMessage" class="col-xs-12">
+                {#<div id="writeForm" class="row alert alert-info affix-bottom">
+                    {{ form_start(form) }}
+                    <div class="col-xs-12 col-sm-8">
+                        #}{#{{ form_widget(form.content,{ 'attr': {'cols': '80','rows': '1'}, 'id': 'appbundle_wall_content_top' }) }}#}{#
+                        {{ form_widget(form.content,{ 'attr': {'cols': '80','rows': '1'} }) }}
+                    </div>
+                    <div class="col-xs-9 col-sm-2 text-center">
+                        <input type="submit" name="save" class="btn btn-success btn-block">
+                    </div>
+                    <div class="col-xs-3 col-sm-2 text-center">
+                        <a href="#writeModal" id="openModal" class="btn btn-primary btn-block btn-write" data-toggle="modal" data-target="#writeModal" title="Ecrire">
+                            <i class="fa fa-expand" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    {{ form_end(form) }}
+                </div>#}
+                {% for data in walldatas %}
+                    {# WALL DISPLAY MESSAGE #}
+                    {% if data.wall != null %}
+
+                        <div class="messages index{{ loop.index0 + 1 }}">
+                            <div class="wallBorder" style="border-color: {{ wallUsersColors[data.circleuser.user.id] }}; {% if (circleUser.user.id == data.circleuser.user.id) %}border-style:dashed;{% endif %}">
+                                <div class="wallTitle" style="background-color: {{ wallUsersColors[data.circleuser.user.id] }}">
+                                    <div class="row">
+                                        <div class="col-xs-3 col-sm-2">
+                                            <img src="{% if data.circleuser.user.avatar != null %}{{ asset("uploads/" ~ data.circleuser.user.avatar) }}{% else %}{{ asset("assets/img/avatar.png") }}{% endif %}" class="wallAvatar img-circle" alt="{{  data.circleuser.user.firstname }} {{  data.circleuser.user.name }}" style="border-color: {{ wallUsersColors[data.circleuser.user.id] }};">
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h5>
+                                                <i class="fa fa-folder-open wallIcon"></i><strong> {{ data.circleuser.user.firstname }} {{ data.circleuser.user.name }} </strong>
+                                            </h5>
+                                             <p>{{ data.creationdate|date("d/m/Y H:i") }}</p>
+                                        </div>
+                                        <div class="hidden-xs col-sm-1 text-right">
+                                            <i class="fa fa-2x fa-commenting wallIcon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wallMsgContent">
+                                    {% if data.wall.content is defined %}
+                                        {% autoescape false %}
+                                            {{ data.wall.content }}
+                                        {% endautoescape %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {# CLOUD DISPLAY MESSAGE #}
+                    {% elseif data.cloud != null %}
+                        {% if 'image' in data.cloud.filetype
+                            or 'application/pdf' in data.cloud.filetype
+                            or 'application' in data.cloud.fileType
+                            or 'text' in data.cloud.fileType
+                            or 'video' in data.cloud.filetype
+                            or 'audio' in data.cloud.filetype
+                        %}
+                            {%  set path = upload_directory ~ '/' ~ data.cloud.fileName %}
+                            {%  set fileSize = this.getFileSize(path) %}
+                            <div class="messages index{{ loop.index0 + 1 }}">
+                                <div class="wallBorder" style="border-color: {{ wallUsersColors[data.circleuser.user.id] }}; {% if (circleUser.user.id == data.circleuser.user.id) %}border-style:dashed;{% endif %}">
+                                    <div class="wallTitle" style="background-color: {{ wallUsersColors[data.circleuser.user.id] }}">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-2">
+                                                <img src="{% if data.circleuser.user.avatar != null %}{{ asset("uploads/" ~ data.circleuser.user.avatar) }}{% else %}{{ asset("assets/img/avatar.png") }}{% endif %}" class="wallAvatar img-circle" alt="{{  data.circleuser.user.firstname }} {{  data.circleuser.user.name }}" style="border-color: {{ wallUsersColors[data.circleuser.user.id] }};">
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h5>
+                                                    <i class="fa fa-folder-open wallIcon"></i><strong>{{ data.circleuser.user.firstname }} {{ data.circleuser.user.name }}</strong>
+                                                </h5>
+                                                <p>{{ data.creationdate|date("d/m/Y H:i") }}</p>
+                                            </div>
+                                            <div class="hidden-xs col-sm-1 text-right">
+                                                <i class="fa fa-2x
+                                                {% if 'image' in data.cloud.filetype %}fa-file-image-o
+                                                {% elseif 'video' in data.cloud.filetype %}fa-video-camera
+                                                {% elseif 'audio' in data.cloud.filetype %}fa-music
+                                                {% elseif ("application" in data.cloud.fileType) or ("text" in data.cloud.fileType) %}
+                                                    {% if ".doc" in data.cloud.fileName %}fa-file-word-o
+                                                    {% elseif ".xls" in data.cloud.fileName %}fa-file-excel-o
+                                                    {% elseif 'application/pdf' in data.cloud.filetype %}fa-file-pdf-o
+                                                    {% elseif 'text' in data.cloud.filetype %}fa-file-text-o
+                                                    {% else %}fa-file
+                                                    {% endif %}
+                                                {% endif %}
+                                                wallIcon"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% set replace_value_var= token ~ "/" %}
+                                    {% set replace_with_value_var = '' %}
+                                    {% set fileName = data.cloud.fileName|replace({ (replace_value_var): replace_with_value_var }) %}
+
+                                    {% if 'image' in data.cloud.filetype %}
+                                    <div class="row">
+                                        <div class="col-xs-12 text-center">
+                                            <div class="col-xs-12 text-center">
+                                                <strong class="filename">{{ fileName }} <em>({{ fileSize }})</em></strong>
+                                            </div>
+                                            <img data-src="{{ asset("uploads/" ~ data.cloud.fileName) }}" class="lazy itemWall itemCloud imgModal img-responsive" alt="{{ data.creationdate|date("d/m/Y H:i") }} / {{ data.cloud.filename }}" />
+                                            <a class="btn btn-default downloadFile" href="{{ asset("uploads/" ~ data.cloud.fileName) }}" download="{{ data.cloud.fileName }}">
+                                                Télécharger le fichier
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% elseif 'video' in data.cloud.filetype %}
+                                        <div class="row">
+                                            <div class="col-xs-12 text-center">
+                                                <strong class="filename">{{ fileName }} <em>({{ fileSize }})</em></strong>
+                                            </div>
+                                            <div class="col-xs-12 text-center">
+                                                <video controls class="itemWallVideo" preload="metadata">
+                                                    <source src="{{ asset("uploads/" ~ data.cloud.fileName) }}" type="{{ data.cloud.filetype }}" />
+                                                    <p>Votre navigateur ne supporte pas les éléments de type<code>vidéo</code>.</p>
+                                                </video>
+                                            </div>
+                                            <div class="col-xs-12 text-center">
+                                                <a class="btn btn-default downloadFile" href="{{ asset("uploads/" ~ data.cloud.fileName) }}" download="{{ data.cloud.fileName }}">
+                                                    Télécharger le fichier
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% elseif 'audio' in data.cloud.filetype %}
+                                        <div class="row">
+                                            <div class="col-xs-12 text-center">
+                                                <strong class="filename">{{ fileName }} <em>({{ fileSize }})</em></strong>
+                                            </div>
+                                            <div class="col-xs-12 text-center">
+                                                <audio controls class="itemWallAudio">
+                                                    <source type="{{ data.cloud.filetype }}" src="{{ asset("uploads/" ~ data.cloud.fileName) }}"/>
+                                                    Votre navigateur ne supporte pas les éléments de type<code>audio</code>.
+                                                </audio>
+                                            </div>
+                                            <div class="col-xs-12 text-center">
+                                                <a class="btn btn-default downloadFile" href="{{ asset("uploads/" ~ data.cloud.fileName) }}" download="{{ data.cloud.fileName }}">
+                                                    Télécharger le fichier
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% elseif ("application" in data.cloud.fileType) or ("text" in data.cloud.fileType) %}
+                                        <div class="row">
+                                            <div class="col-xs-12 text-center">
+                                                <strong class="filename">{{ fileName }} <em>({{ fileSize }})</em></strong>
+                                            </div>
+                                            <div class="col-xs-12 text-center">
+                                                <a class="btn btn-default downloadFile" href="{{ asset("uploads/" ~ data.cloud.fileName) }}" download="{{ data.cloud.fileName }}">
+                                                    Télécharger le fichier
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                            {# AGENDA DISPLAY MESSAGE #}
+                    {% elseif data.agenda != null %}
+                        <div class="messages index{{ loop.index0 + 1 }}">
+                            <div class="wallBorder" style="border-color: {{ wallUsersColors[data.circleuser.user.id] }}; {% if (circleUser.user.id == data.circleuser.user.id) %}border-style:dashed;{% endif %}">
+                                <div class="wallTitle" style="background-color: {{ wallUsersColors[data.circleuser.user.id] }}">
+                                    <div class="row">
+                                        <div class="col-xs-3 col-sm-2">
+                                            <img src="{% if data.circleuser.user.avatar != null %}{{ asset("uploads/" ~ data.circleuser.user.avatar) }}{% else %}{{ asset("assets/img/avatar.png") }}{% endif %}" class="wallAvatar img-circle" alt="{{  data.circleuser.user.firstname }} {{  data.circleuser.user.name }}" style="border-color: {{ wallUsersColors[data.circleuser.user.id] }};">
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h5>
+                                                <i class="fa fa-folder-open wallIcon"></i><strong> {{ data.circleuser.user.firstname }} {{ data.circleuser.user.name }} </strong>
+                                            </h5>
+                                            <p>{{ data.creationdate|date("d/m/Y H:i") }}</p>
+                                        </div>
+                                        <div class="hidden-xs col-sm-1 text-right">
+                                            <i class="fa fa-2x fa-calendar-check-o wallIcon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wallMsgContent">
+                                    {% if data.agenda.title is defined %}
+                                    <p>
+                                        <strong>Titre:</strong> {{ data.agenda.title }}
+                                    </p>
+                                    {% endif %}
+                                    {% if data.agenda.description is defined %}
+                                    <p>
+                                        <strong>Evenement:</strong> {{ data.agenda.description }}
+                                    </p>
+                                    {% endif %}
+                                    {% if data.agenda.eventStart is defined %}
+                                    <p>
+                                        <strong>Date de l'evenement:</strong> {{ data.agenda.eventStart|date("d/m/Y H:i") }}
+                                    </p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class=" col-xs-10 col-xs-offset-1 col-lg-offset-4 col-lg-4 text-center">
+                <div class="row">
+                    <a href="#affichePlus" id="affiche" class="btn btn-lg btn-info">
+                        Afficher plus
+                        &nbsp;<i class="fa fa-fw fa-arrow-circle-down hidden-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+       <div class="row btn-tools">
+           <div class="col-xs-3 text-left">
+               <a href="{{ path('appli', {'token': token}) }}" class="btn btn-default btn-back" title="Retour"><i class="fa fa-arrow-left fa-fw"></i></a>
+           </div>
+
+           <div class="col-xs-9 text-right">
+               <a name="refresh" href="#" class="btn btn-default btn-refresh" title="Rafraichir"><i class="fa fa-refresh fa-fw"></i></a>
+               <button type="button" id="openModal" class="btn btn-default btn-primary btn-write" data-toggle="modal" data-target="#writeModal" title="Ecrire">
+                   Écrire
+               </button>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col-xs-4 col-xs-offset-4 text-center">
+               <br />
+               <a href="#top">
+                   <button title="Remonter " class="center-block btn btn-sm btn-top"><i class="fa fa-arrow-up"></i></button>
+               </a>
+           </div>
+       </div>
+       <!--
+        ckeditor
+        basic - the Basic preset
+        standard - the Standard preset
+        standard-all - the Standard preset together with all other plugins created by CKSource*
+        full - the Full preset
+        full-all - the Full preset together with all other plugins created by CKSource*
+       -->
+       <script src="https://cdn.ckeditor.com/4.8.0/full/ckeditor.js"></script>
+       <div id="writeModal" class="modal fade" role="dialog">
+           <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <button id="btnCloseModal" type="button" class="fa fa-close" data-dismiss="modal"></button>
+                       <h4 class="modal-title">Ecrire un Message</h4>
+                   </div>
+                   <div class="modal-body">
+                       {{ form_start(form) }}
+                       {{ form_widget(form.content,{ 'attr': {'cols': '80','rows': '1'}, 'id': 'appbundle_wall_content' }) }}
+                       <br>
+                       <div class=" text-center">
+                        <input type="submit" name="save" class="btn btn-default">
+                       </div>
+                       {{ form_end(form) }}
+                   </div>
+               </div>
+           </div>
+       </div>
+    </section>
+    <div id="loader" class="fade text-warning text-center">
+        <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw" aria-hidden="true"></i>
+        <span class="sr-only">Chargement...</span>
+    </div>
+    <div id="imgModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="caption" class="label"></div>
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img">
+    </div>
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
+    <script>
+        $('.lazy').lazy({
+            scrollDirection: 'vertical',
+            effect: 'fadeIn',
+            visibleOnly: true,
+            beforeLoad: function(element) {
+                // called before an elements gets handled
+                $(element).addClass('loader');
+            },
+            afterLoad: function(element) {
+                // called after an element was successfully handled
+                $(element).removeClass('loader');
+            },
+            onError: function(element) {
+                // called whenever an element could not be handled
+            },
+            onFinishedAll: function() {
+                // called once all elements was handled
+            }
+        });
+
+        var displayIndex = 2;
+        $(".messages").hide();
+        $(".index1").show();
+        $(".index2").show();
+        $(".index3").show();
+
+        function initWall() {
+            console.log('displayIndex ' + displayIndex + ' >= ' + {{ walldatas|length }} );
+            if( displayIndex >= {{ walldatas|length }} ){
+                $('#affiche').hide();
+            }
+        }
+
+        initWall();
+
+        var $WriteContent = $('#appbundle_wall_content');
+        $WriteContentId = $WriteContent.attr('id');
+
+        CKEDITOR.replace( $WriteContentId, {
+            language: 'fr',
+            toolbarGroups: [
+                { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                //{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+                { name: 'links', groups: [ 'links' ] },
+            ],
+            contentsCss: ["body {font-size: 18px; font-family: 'Arial,sans-serif'; color: rgb(28, 117, 188);}"],
+            // Remove the redundant buttons from toolbar groups defined above.
+            removeButtons: 'Save,Templates,Find,Form,TextField,Textarea,Select,Button,ImageButton,HiddenField,Radio,Language,BidiRtl,BidiLtr,Anchor,Flash,CreateDiv,PageBreak,Iframe,Font,About,NewPage,Preview,Print,Checkbox,Source,ShowBlocks,Subscript,Superscript,CopyFormatting'
+        });
+
+        $('#writeModal').on('shown.bs.modal', function () {
+            $WriteContent.focus();
+            CKEDITOR.instances[$WriteContentId].focus();
+        });
+
+        $("a[href='#top']").click(function() {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+            return false;
+        });
+
+        $("a[href='#affichePlus']").click(function () {
+
+            $('#loader').addClass('in');
+            $( ".index"+displayIndex ).show("fast", function() {$('#loader').removeClass('in');});
+
+            $('#loader').addClass('in');
+            displayIndex++;
+            $( ".index"+displayIndex ).show("fast", function() {$('#loader').removeClass('in');});
+
+            $('#loader').addClass('in');
+            displayIndex++;
+            $( ".index"+displayIndex ).show("fast", function() {$('#loader').removeClass('in');});
+            displayIndex++;
+
+            initWall();
+
+        });
+
+        // Get the modal
+        var $Modal = $('#imgModal');
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var $Imgs = $('.imgModal');
+        var $ModalImg = $("img", $Modal);
+        var $CaptionText = $("#caption", $Modal);
+        $Imgs.on('click', function(event) {
+            event.preventDefault();
+            var $This = $(this);
+            $ModalImg.attr('src', $This.attr('src'));
+            $CaptionText.html($This.attr('alt'));
+            //$Modal.show();
+            $Modal.modal('show');
+        });
+
+        // Get the <span> element that closes the modal
+        var $CloseBtn = $(".close", $Modal);
+        $CloseBtn.on('click', function(event) {
+            event.preventDefault();
+            //$Modal.hide();
+            $Modal.modal('hide');
+        });
+
+        var $RefreshBtn = $('.btn-refresh');
+        $RefreshBtn.on('click', function(event) {
+            event.preventDefault();
+            window.location.reload();
+        });
+
+        $('#loader').on('click', function() {
+            $(this).removeClass('in');
+        });
+
+    </script>
+{% endblock %}

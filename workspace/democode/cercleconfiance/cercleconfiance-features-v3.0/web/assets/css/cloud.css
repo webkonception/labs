@@ -1,0 +1,205 @@
+.clear-fix {
+    clear: both;
+}
+.cloud .isotope .button {
+    display: inline-block;
+    padding: 0.5em 1.0em;
+    margin-bottom: 10px;
+    background: #EEE;
+    border: none;
+    border-radius: 7px;
+    background-image: linear-gradient( to bottom, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2) );
+    color: #222;
+    font-family: sans-serif;
+    font-size: 16px;
+    text-shadow: 0 1px white;
+    cursor: pointer;
+}
+
+.cloud .isotope .button {
+    display: inline-block;
+    padding: 0.5em 1.0em;
+    background: #EEE;
+    border: none;
+    border-radius: 7px;
+    background-image: linear-gradient( to bottom, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2) );
+    color: #222;
+    font-family: sans-serif;
+    font-size: 16px;
+    text-shadow: 0 1px white;
+    cursor: pointer;
+}
+
+.cloud .isotope .button:hover {
+    background-color: #8CF;
+    text-shadow: 0 1px hsla(0, 0%, 100%, 0.5);
+    color: #222;
+}
+
+.cloud .isotope .button:active,
+.cloud .isotope .button.is-checked {
+    background-color: #28F;
+}
+
+.cloud .isotope .button.is-checked {
+    color: white;
+    text-shadow: 0 -1px hsla(0, 0%, 0%, 0.8);
+}
+
+.cloud .isotope .button:active {
+    box-shadow: inset 0 1px 10px hsla(0, 0%, 0%, 0.8);
+}
+
+/* ---- button-group ---- */
+
+.cloud .isotope .button-group:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.cloud .isotope .button-group .button {
+    float: left;
+    border-radius: 0;
+    margin: 0;
+}
+
+.cloud .isotope .button-group .button:first-child { border-radius: 0.5em 0 0 0.5em; }
+.cloud .isotope .button-group .button:last-child { border-radius: 0 0.5em 0.5em 0; }
+
+/* ---- isotope ---- */
+.cloud .isotope .grid {
+    background: #fff;
+}
+
+/* clear fix */
+.cloud .isotope .grid:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* ui group */
+.cloud .isotope .ui-group {
+    display: inline-block;
+}
+
+.cloud .isotope .ui-group h3 {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 2em;
+    margin-right: 0.2em;
+    font-size: 1em;
+}
+
+.cloud .isotope .ui-group .button-group {
+    width: 100%;
+    margin-right: 20px;
+}
+.cloud .isotope .ui-group .button-group li {
+    padding: 0 0.15em;
+    float: left;
+    width: auto;
+}
+.cloud .isotope .users-group .button-group button {
+    background: #fff;
+}
+.cloud .isotope .ui-group .button-group button {
+    height: auto;
+    line-height: 1.42857143;
+    font-size: initial;
+    padding: .5em;
+}
+.cloud .isotope .ui-group .button-group .active button:focus,
+.cloud .isotope .ui-group .button-group .active button:hover,
+.cloud .isotope .ui-group .button-group .active button:active {
+    background: #1C75BC;
+}
+@media only screen and (max-width: 525px) {
+    .cloud .isotope .ui-group .button-group li {
+        float: left;
+        width: 33%;
+        overflow: hidden;
+    }
+    .cloud .isotope .users-group .button-group li {
+        width: 50%;
+    }
+    .cloud .isotope .ui-group .button-group li:first-child {
+        display: block;
+        width: 100%;
+    }
+}
+
+/* ---- .element-item ---- */
+.cloud .isotope .element-item > * {
+    margin: 0;
+    padding: 0;
+}
+
+.cloud .isotope .element-item {
+    margin-top: 0;
+    margin-bottom: .5em;
+    font-size: .75em;
+    margin: 0 -15px;
+    text-align: center;
+}
+
+.cloud .isotope .element-item .item {
+    position: relative;
+    width: 15em;
+    height: 15em;
+    padding: 1.5em 1.5em;
+    display: block;
+    margin: auto;
+    overflow: hidden;
+    border: 4px solid;
+    border-radius: 50%;
+}
+.cloud .isotope .element-item .fa-icon {
+    position: absolute;
+    bottom: .5em;
+    left: 50%;
+}
+.cloud .isotope .element-item .item .downloadFile {
+    /*position: relative;*/
+    z-index: 2;
+    margin-bottom: 0.5em;
+    height: auto;
+    padding: .5em;
+    font-size: medium;
+    border-radius: 4px;
+
+    position: absolute;
+    bottom: 1.25em;
+    left: 17.5%;
+    width: 65%;
+}
+.cloud .isotope .element-item .item * {
+    position: relative;
+    z-index: 1;
+}
+.cloud .isotope .element-item .itemCloud {
+}
+.cloud .isotope .element-item img.itemCloud {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+.cloud .isotope .element-item .item video {
+    max-height: 6em;
+}
+.cloud .isotope .element-item .item .filename {
+    padding-top: 0.5rem;
+}
+.cloud .isotope .ui-group .button-group button.is-checked,
+.cloud .isotope .ui-group .button-group li.active button {
+    background: #000!important;
+    color: #fff !important;
+    border-color: #000 !important;
+}

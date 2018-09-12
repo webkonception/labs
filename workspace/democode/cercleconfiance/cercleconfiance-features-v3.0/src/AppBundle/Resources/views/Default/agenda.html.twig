@@ -1,0 +1,62 @@
+{% extends 'AppBundle::layoutAppli.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {#<link rel="stylesheet" href="{{ asset('assets/fullcalendar/css/fullcalendar/fullcalendar.min.css') }}" />#}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" />
+{% endblock %}
+
+{% block content %}
+<section class="container-fluid marginBottom{% if app.visio_enterprise is defined %} visio_enterprise{% endif %}">
+    <div class="row btn-tools">
+        <div class="col-xs-6 text-left">
+            <a href="{{ path('appli', {'token': token}) }}" class="btn btn-default btn-back" title="Retour"><i class="fa fa-arrow-left fa-fw"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="section-header col-xs-8 col-xs-offset-2 col-sm-10 col-sm-offset-1 text-center">
+            <h2 class="section-title text-center">Agenda</h2>
+            <h3 class="hidden-xs">Retrouvez votre planning du jour, de la semaine et du mois</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="calendar" class="col-xs-10 col-xs-offset-1"></div>
+    </div>
+</section>
+
+<div id="agendaModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                <h4 id="modalTitle" class="modal-title"></h4>
+            </div>
+            <div id="modalBody" class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger deleteEvent" data-dismiss="modal">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {#<script src="{{ asset('assets/fullcalendar/js/fullcalendar/lib/moment.min.js') }}"></script>#}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+    {#<script src="{{ asset('assets/fullcalendar/js/fullcalendar/fullcalendar.min.js') }}"></script>#}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    {#<script src="{{ asset('assets/fullcalendar/locale/fr.js') }}"></script>#}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale/fr.js"></script>
+    <script type="text/javascript">
+        var routes = {
+            myroutes:{
+                agenda:"{{ path('agenda', {'token': token}, true) }}", // the true permits to use relative path
+                json:"{{ path('json', {'token': token}, true) }}"
+            },
+        };
+    </script>
+    <script src="{{ asset('assets/js/agenda.js') }}"></script>
+{% endblock %}

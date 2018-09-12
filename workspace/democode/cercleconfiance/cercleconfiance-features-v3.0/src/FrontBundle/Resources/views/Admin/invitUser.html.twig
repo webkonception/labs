@@ -1,0 +1,126 @@
+{% extends "FrontBundle::layoutFront.html.twig" %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block title %} S'enregistrer {% endblock %}
+
+
+{% block content %}
+<section id="createAccount">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2 class="section-title">Invitation à rejoindre un cercle</h2>
+        </div>
+
+        {% if error is defined %}
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row text-center">
+            <div class="col-xs-10 col-xs-offset-1">
+                <a href="{{ path('verif_account', {'token': token}) }}" class="btn btn-default btn-success">J'ai déjà un compte</a>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row text-center">
+            <div class="col-xs-10 col-xs-offset-1">
+                <h3><strong class="text-danger">Je n'ai pas de compte :</strong><br/>Compléter l'invitation en créant un compte <u class="text-info">si vous n'êtes pas déjà membre.</u></h3>
+            </div>
+
+            <div class="col-xs-12" id="invitUserNew">
+                {{ form_start(form) }}
+                <div class="form well alert-warning createCircle">
+                    <div class="row text-left">
+                        <div class="col-sm-6">
+                            <div class="form-group {% if form.user.name.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.name)}}
+                                {{ form_widget(form.user.name) }}
+                                {{ form_errors(form.user.name) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group {% if form.user.firstname.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.firstname)}}
+                                {{ form_widget(form.user.firstname) }}
+                                {{ form_errors(form.user.firstname) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group {% if form.user.email.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.email)}}
+                                {{ form_widget(form.user.email) }}
+                                {{ form_errors(form.user.email) }}
+                            </div>
+                            <div class="form-group {% if form.user.username.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.username)}}
+                                {{ form_widget(form.user.username) }}
+                                {{ form_errors(form.user.username) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group {% if form.user.plainPassword.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_widget(form.user.plainPassword) }}
+                                {{ form_errors(form.user.plainPassword) }}
+                            </div>
+                        </div>
+
+                        {#<div class="col-sm-12">
+                            <div class="form-group {% if form.user.relation.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.relation)}}
+                                {{ form_widget(form.user.relation) }}
+                                {{ form_errors(form.user.relation) }}
+                            </div>
+                        </div>#}
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="form well alert-success createCircle">
+                    <div class="row text-left">
+                        <div class="col-sm-12">
+                            <div class="form-group {% if form.user.address.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.address)}}
+                                {{ form_widget(form.user.address) }}
+                                {{ form_errors(form.user.address) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group {% if form.user.phone_number.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.phone_number)}}
+                                {{ form_widget(form.user.phone_number) }}
+                                {{ form_errors(form.user.phone_number) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group {% if form.user.avatar.vars.errors|length > 0 %} has-error text-danger{% endif %}">
+                                {{ form_label(form.user.avatar)}}
+                                {{ form_widget(form.user.avatar) }}
+                                {{ form_errors(form.user.avatar) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 text-center">
+                            {{ form_row(form.save, { 'label': 'Valider', 'attr': {'class': 'submitFormCC btn btn-default'} }) }}
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

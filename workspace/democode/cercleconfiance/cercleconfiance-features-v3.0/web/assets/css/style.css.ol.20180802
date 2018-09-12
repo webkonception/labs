@@ -1,0 +1,975 @@
+/*_____GENERAL_____*/
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Fresca';
+    src: url('../fonts/Fresca/Fresca-Regular.ttf') format('truetype');
+}
+
+body {
+    font-size: 20px;
+    font-family: Poppins;
+}
+
+h1, h2, h3 {
+    font-family: Fresca;
+}
+
+h2 {
+    font-size: 44px;
+}
+
+h3, h4 {
+    font-weight: bold;
+}
+.btn {
+    margin-bottom: .5em;
+}
+.btn-default {
+    /*background: transparent none repeat scroll 0 0;*/
+    /*border: 2px solid #45aed6;*/
+    border-radius: 100px;
+    /*color: #45aed6;*/
+    font-size: 17px;
+    height: 50px;
+    line-height: 20px;
+    padding: 15px 35px;
+    transition: all 0.4s ease 0s;
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active {
+    background: #1C75BC;
+    border: 2px solid #1C75BC;
+    color: white;
+}
+
+.error {
+    height: 65vh;
+    padding-top: 20vh;
+}
+
+/*_____NAVBAR_____*/
+header {
+    font-size: 25px;
+}
+
+.stopPadding {
+    margin-top: -100px;
+}
+
+#main-menu.navbar-default {
+    background-color: white;
+    -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+
+#main-menu.navbar-default .navbar-nav > li.active > a, #main-menu.navbar-default .navbar-nav > li.open > a, #main-menu.navbar-default .navbar-nav > li:hover > a {
+    border-top: none;
+    border-bottom: 3px solid #45aed6;
+}
+
+#main-menu.navbar-default .navbar-nav > li.active > a {
+    background-color: rgba(54, 171, 226, 0.8);
+}
+
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+    text-align: center;
+}
+
+.logo {
+    width: 100px;
+}
+
+.navbar.navbar-default .paddingLogoNav {
+    height: auto;
+    padding: 5% 5% 5% 5%;
+    margin-left: 5%;
+}
+
+
+/*_____FOOTER_____*/
+footer {
+    font-size: 25px;
+}
+
+#footer a {
+    color: #777;
+}
+
+#footer {
+    background-color: white;
+    -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+.mentionFooter {
+    color: #777;
+    margin-top: 4%;
+}
+
+.footerLinks {
+    margin-top: 2%;
+}
+
+/*_____Register_____*/
+.registerform{
+    margin-bottom: 70px;
+    margin-top: 0px;
+    padding-top: 100px;
+}
+
+/*________Login________*/
+
+.marginBtnRegister {
+    margin: 30px auto 50px auto;
+}
+
+/*_____Page QuiSommesNous_____*/
+.qsn {
+    margin: 3% 0;
+}
+#about{
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+.qsnSectionHeader{
+    padding-bottom: 50px;
+}
+.morepadding{
+    padding-left: 5%;
+}
+
+.img-qsn {
+    width: 900px;
+    height: 400px;
+    margin: auto;
+}
+
+/*_____Page Services_____*/
+.serviceTitle {
+    margin-bottom: 5%;
+    margin-top: 3%;
+}
+
+.plan-purchase {
+    position: absolute;
+    text-align: center;
+    bottom: 10px;
+    width: 100%;
+    left: 0px;
+}
+
+#pricing ul.pricing {
+    background-color: #45aed6;
+    height: 500px;
+}
+
+
+#pricing {
+    padding: 30px 0 70px;
+}
+
+
+
+
+/*_____Page ObjetsCo_____*/
+
+.objetsTitleFront {
+    margin-bottom: 5%;
+    margin-top: 3%;
+}
+
+
+/*________Home________*/
+
+.paddAnchor {
+    padding-top: 100px;
+}
+.marginTitle {
+    margin-top: 30px;
+}
+
+.marginButtonHome {
+    margin-top: 50px;
+}
+
+.firstItem {
+    background-image: url(../images/slider/slider1.jpeg);
+}
+.secondItem {
+    background-image: url(../images/slider/slider2.jpeg);
+}
+
+.medal {
+    display: inline;
+}
+.quote {
+    color: #1C75BC;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/*-------------------------------*/
+/*    Carousel Fade Transition   */
+/*-------------------------------*/
+
+#fade-quote-carousel.carousel {
+    padding-bottom: 60px;
+}
+#fade-quote-carousel.carousel .carousel-inner .item {
+    opacity: 0;
+    -webkit-transition-property: opacity;
+    -ms-transition-property: opacity;
+    transition-property: opacity;
+}
+#fade-quote-carousel.carousel .carousel-inner .active {
+    opacity: 1;
+    -webkit-transition-property: opacity;
+    -ms-transition-property: opacity;
+    transition-property: opacity;
+}
+#fade-quote-carousel.carousel .carousel-indicators {
+    bottom: 10px;
+}
+#fade-quote-carousel.carousel .carousel-indicators > li {
+    background-color: #1C75BC;
+    border: none;
+}
+#fade-quote-carousel blockquote {
+    text-align: center;
+    border: none;
+}
+#fade-quote-carousel .profile-circle {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border-radius: 100px;
+}
+
+/*-------------------------------*/
+/*    Formulaire Services         */
+/*-------------------------------*/
+
+.btnOffer {
+    margin-top: 5%;
+}
+.btnDelet {
+    background-color: #f44242;
+}
+.btnDelet:hover,
+.btnDelet:focus,
+.btnDelet:active,
+.btnDelet:active {
+    background: #f44242;
+    border: 2px solid #1C75BC;
+    color: #F0F4F5;
+}
+.offerPage {
+    margin:10% auto;
+}
+.offerTitle{
+    margin-top: 6%;
+}
+
+/*______________ CLOUD ____________*/
+
+.upload {
+    width: 100px;
+    margin: 1em auto;
+}
+
+.marginBottom {
+    margin-bottom: 50px;
+}
+.marginTop {
+    margin-top: 50px;
+}
+
+.imgCloud{
+    background-image: url("../img/cloud.png");
+}
+.btnCloud {
+    text-align: left;
+    display: inline-block;
+    margin-top:3%;
+}
+.cloudTitle {
+    font-size: 44px;
+    margin-top: 25%;
+}
+.cloudContent {
+    font-size: 19px;
+    margin-top: 3%;
+    margin-bottom: 30px;
+}
+.downloadFile > p{
+    font-size: 20px;
+    text-decoration: none;
+}
+.itemCloud {
+    max-width: 300px;
+    max-height: 200px;
+    margin: 0 auto;
+}
+.imgFile {
+    max-width: 429px;
+    max-height: 321px;
+}
+
+.marginCloud {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.cloudBorder {
+    border: solid 5px #36ABE2;
+    margin-top: 0;
+    margin-bottom: 1.5em;
+}
+/*@media screen and (min-width: 768px) {
+    .cloudDoc {
+        margin-top: 20%;
+    }
+    .cloudBorder {
+        min-height: 366px;
+    }
+}*/
+
+.cloudBack {
+    border: solid 2px #36ABE2;
+    background-color: #36ABE2;
+    margin-left: -5px;
+    margin-top: -5px;
+    border-radius: 5px;
+}
+
+.cloudListTitle {
+    margin-top: 3%;
+    margin-bottom: 2%;
+}
+
+/*--------------Circle----------------*/
+
+.circletest {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.circleSub {
+    margin-bottom: 50px;
+}
+.circleOwner{
+    position: relative;
+    margin-top: 100px;
+    padding-top: 50px;
+    line-height: 90px;
+}
+.circleItem {
+    width: 440px;
+    height: 440px;
+    vertical-align: top;
+    position: relative;
+    z-index: -1;
+    border: 10px solid #C2B499;
+    margin: auto;
+    line-height: 90px;
+
+}
+.circleMember{
+    width: 110px;
+    height: 110px;
+    display: inline-block;
+    margin-top: -10%;
+    border: 10px solid #C2B499;
+    margin-right: -23px;
+
+}
+
+.linkCircle, .linkCircle:hover, .linkCircle:focus, .linkCircle:active {
+    text-decoration: none;
+}
+
+.margFooter {
+    margin-bottom: 50px;
+}
+
+.btn-circle {
+    display: block;
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+    border: 10px solid #C2B499;
+    background-color: rgba(28, 117, 188, 0.6);
+    text-align: center;
+    margin: 0 auto;
+    padding: 30px;
+    color: black;
+    font-size: 20px;
+    vertical-align: top;
+}
+.circle {
+    margin: 5px auto;
+}
+.circleTitle {
+    margin-top: 3%;
+    font-size: 90px;
+}
+
+.circleImg {
+    width: 25px;
+}
+/*----------------layoutAppli------------*/
+
+.circleLink, .circleLink:hover, .circleLink:active, .circleLink:visited, .circleLink:focus {
+    text-decoration: none;
+}
+
+.paddAuth {
+    padding-top: 20px;
+}
+
+.stopPaddLink {
+    padding: 0;
+}
+
+.avatar{
+    width: 50px;
+}
+
+.respNavApp {
+    margin-bottom: 0;
+}
+@media screen and (max-width: 768px){
+    .paddAuth {
+        padding-top: 10px;
+    }
+
+    .respNavApp {
+        font-size: 25px;
+    }
+
+    .respLink {
+        font-size: 15px;
+    }
+
+    .logo {
+        width: 70px;
+        padding-top: 15px;
+    }
+
+    .avatar {
+        width: 40px;
+    }
+
+}
+
+/*--------------Wall----------------*/
+
+
+.wallContent{
+    margin: 20px auto;
+}
+.wallIframePdf{
+    padding-top: 30px;
+    width: 100%;
+    height: 100%;
+}
+.wallTitle{
+    /*position: absolute;*/
+    color: #FFF;
+    /*margin: 0;*/
+    /*margin: -3.5em 0 0;*/
+    margin: -0.5em -.2em 0 0;
+    padding: 5px 1em 5px 0;
+    width: auto;
+    height: 70px;
+    line-height: 5px;
+    border-radius: 5px;
+}
+.cloud .files .wallTitle {
+      margin: -0.5em 0 0 -0.5em;
+}
+.wallBorder{
+    border-radius: 5px;
+    height: auto;
+    padding: 0;
+    margin: 10px auto;
+    width: auto;
+}
+.wallAvatar{
+    z-index: 999;
+    border-radius: 50px;
+    margin-left: -30px;
+    margin-top: -17px;
+    width: 90px;
+    height: 90px;
+}
+
+.wallMsgContent{
+    color: black;
+    /*margin: 20px auto;*/
+    margin: 0 auto;
+    padding-top: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+#btnCloseModal{
+    float: right;
+}
+#openModal{
+    margin-right: 20px;
+    float: right;
+}
+.btnModal{
+    height: 50px;
+    width: auto;
+}
+.righter{
+    margin-right: 20px;
+    float: right;
+}
+.padder{
+    margin-top: 20px;
+    margin-left: 50px;
+}
+.lefter{
+    margin-right: 20px;
+    float: left;
+}
+#appbundle_wall_content{
+    height: auto;
+    width: 100%;
+}
+#affiche{
+    text-align: center;
+    width: auto;
+    height: 50px;
+    margin: 0 auto;
+}
+
+#retour{
+    display: block;
+    text-align: right;
+    width: 200px;
+    height: auto;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.itemWall {
+    margin: 0 auto;
+}
+
+.itemWallVideo {
+    margin-left: 33%;
+    width: 33%;
+    z-index: 10;
+}
+.itemWallPdf {
+    width: 100%;
+    height: 400px;
+    z-index: 10;
+}
+.messages {
+  margin-bottom: 2em;
+}
+@media screen and (min-device-width: 768px){
+    #affiche{
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    /*
+    .messages:nth-of-type(even) {
+        margin-left: 250px;
+        width: auto;
+        min-width: 300px;
+    }
+
+    .messages:nth-of-type(odd) {
+        margin-right: 150px;
+        width: auto;
+        min-width: 300px;
+    }*/
+
+    .messages:nth-of-type(even) .wallBorder {
+        border: solid 4px #C2B499;
+    }
+
+    .messages:nth-of-type(odd) .wallBorder{
+        border: solid 4px #36ABE2;
+    }
+
+    .messages:nth-of-type(even) .wallTitle{
+        background-color: #C2B499;
+    }
+
+    .messages:nth-of-type(odd) .wallTitle{
+        background-color: #36ABE2;
+    }
+
+    .messages:nth-of-type(even) .wallAvatar{
+        border: solid 4px #C2B499;
+    }
+
+    .messages:nth-of-type(odd) .wallAvatar{
+        border: solid 4px #36ABE2;
+    }
+}
+@media screen and (max-device-width: 769px){
+
+
+
+    .messages:nth-of-type(even) .wallBorder {
+        border: solid 4px #C2B499;
+    }
+
+    .messages:nth-of-type(odd) .wallBorder{
+        border: solid 4px #36ABE2;
+    }
+
+    .messages:nth-of-type(even) .wallTitle{
+        background-color: #C2B499;
+    }
+
+    .messages:nth-of-type(odd) .wallTitle{
+        background-color: #36ABE2;
+    }
+
+    .messages:nth-of-type(even) .wallAvatar{
+        border: solid 4px #C2B499;
+    }
+
+    .messages:nth-of-type(odd) .wallAvatar{
+        border: solid 4px #36ABE2;
+    }
+    .messages{
+        padding: 10px 30px;
+    }
+}
+
+
+/*___________________Accueil Appli________________*/
+
+.navAppli {
+    margin-top: 50px ;
+    margin-bottom: 50px ;
+}
+
+.navImage {
+    background-color: rgba(194, 180, 153,0.4);
+    box-shadow: black;
+    margin: 3% auto;
+    font-size: 180px;
+    border: 10px solid rgb(28, 117, 188);
+    border-radius: 50%;
+    padding: 10%;
+}
+
+.navImage:hover, .navImage:focus, .navImage:active {
+    text-decoration: none;
+    border: 10px solid rgb(194, 180, 153);
+}
+
+.navImageTitle {
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.pictoColor {
+    color: rgb(28, 117, 188);
+}
+
+@media screen and (max-width: 768px) {
+    .navImageTitle {
+        font-size: 20px;
+    }
+}
+
+/*--------------adminUser----------------*/
+.btn-return{
+    margin: 30px 10px;
+    padding: 0 20px;
+}
+.btn-edit{
+    background-color: white;
+    font-size: 15px;
+    margin: 5px;
+    padding: 10px;
+}
+.btn-delete{
+    background-color: white;
+    margin: 5px;
+    padding: 10px;
+}
+.addUserForm{
+    padding: 0;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+.btn-submit-resize{
+    margin-top: 20px;
+}
+.colorForCenter{
+    background-color: rgba(94, 187, 231, 0.3);
+}
+.colorForCenter>td{
+    background-color: rgba(94, 187, 231, 0.3);
+}
+.colorForAdmin{
+    background-color: rgba(94, 187, 231, 0.5);
+}
+.colorForAdmin>td {
+    background-color: rgba(94, 187, 231, 0.5);
+}
+
+/*___________________Admin Appli________________*/
+
+.formEditUser{
+    width: 200px;
+}
+.editUserBlock{
+    margin-top: 50px;
+}
+
+/*___________________Agenda________________*/
+
+.agendaTitle {
+    font-size: 50px;
+    text-decoration: none;
+}
+
+#calendar {
+    margin-top: 50px ;
+    margin-bottom: 50px ;
+}
+
+/*________ Visio ________*/
+.green{
+    color: greenyellow;
+}
+.red{
+    color: darkred;
+}
+.visioTitle {
+    margin-top: 30px;
+}
+
+.blockVisio {
+    position: relative;
+    padding: 0;
+}
+
+#receive {
+    width: 100%;
+    border: 5px solid rgb(194, 180, 153);
+    border-radius: 20px;
+}
+
+#send {
+    width: 20%;
+    position: absolute;
+    right: 0;
+    border: 5px solid rgb(28, 117, 188);
+    border-radius: 20px;
+}
+
+.visioMembers {
+    background-color: rgba(194, 180, 153,0.4);
+    border: 5px solid rgb(28, 117, 188);
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.miniAvatar {
+    width: 25px;
+}
+
+.listUser {
+    list-style: none;
+}
+
+.listUser .backVisioMembers {
+    background-color: rgba(194, 180, 153,0.2);
+    border-radius: 40px;
+}
+
+.marginLinkMembers {
+    margin: 10px auto 10px auto;
+}
+
+@media screen and (max-width: 1300px) {
+    .backVisioMembers {
+        font-size: 15px;
+    }
+}
+@media screen and (max-width: 992px) {
+    .backVisioMembers {
+        display: inline;
+    }
+
+    .blockVisio {
+        margin-top: 30px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .section-header .visioTitle {
+        font-size: 35px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .section-header .visioTitle {
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .section-header .visioTitle {
+        font-size: 18px;
+    }
+}
+
+/*___________________Gerer Membre________________*/
+
+.memberAvatar {
+    width: 150px;
+    height: 150px;
+}
+
+#tabMember > li.active > a, #tabMember > li.active > a:hover, #tabMember > li.active > a:focus {
+    background-color: rgba(194, 180, 153, 1);
+    border-radius: 50%;
+}
+
+#tabMember {
+    border: none;
+}
+
+#tabMember li {
+    float: none;
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.paneColor .tab-content {
+    margin-top: 30px;
+    border: none;
+    background-color: rgba(94, 187, 231, 0.5);
+    border-radius: 30px;
+}
+
+@media screen and (max-width: 768px){
+    .memberAvatar {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/*___________________Creation Cercle________________*/
+
+.labelFormCC {
+    margin-top: 15px;
+}
+
+.labelTitleFormCC {
+    margin-top: 20px;
+    font-size: 25px;
+}
+
+.submitFormCC {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.createCircleTitle {
+    margin-top: 50px;
+}
+
+.hiddenFormCC {
+    visibility: hidden;
+}
+
+
+/*___________________Services________________*/
+
+.btnOffer {
+    margin-top: 5%;
+}
+.btnDelet {
+    background-color: #f44242;
+    color: white;
+}
+.btnDelet:hover,
+.btnDelet:focus,
+.btnDelet:active,
+.btnDelet:active {
+    background: #f44242;
+    border: 2px solid #1C75BC;
+    color: white;
+}
+
+/*________ Stats Objets ________*/
+
+.titleStats {
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+#myChart {
+    width: 100%;
+}
+
+@media screen and (max-width: 768px){
+    .respStat {
+        font-size: 30px;
+    }
+
+    .respDoc {
+        font-size: 18px;
+    }
+}
+
+/*___________________Admin objets Co________________*/
+
+.objetThumb {
+    height: 400px;
+    background-color: rgba(194, 180, 153, 0.2);
+    border: 5px solid rgb(28, 117, 188);
+    border-radius: 20px;
+}
+
+.objCoPicto {
+    margin: 3% auto;
+    font-size: 180px;
+    padding: 10%;
+}
+
+.objImg {
+    margin-top: 0.5%;
+}
+
+.objCoTitle {
+    font-size: 50px;
+    text-decoration: none;
+    margin-bottom: 2%;
+}
+
+.objCoBtn {
+    margin-bottom: 1%;
+}

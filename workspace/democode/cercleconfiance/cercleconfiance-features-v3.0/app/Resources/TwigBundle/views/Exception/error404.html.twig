@@ -1,0 +1,9 @@
+{% extends 'FrontBundle::layoutFront.html.twig' %}
+
+{% block content %}
+    <div class="container text-center error">
+        <h1>Erreur 404</h1>
+        <p>La page que vous demandez n'existe pas !</p>
+        <a href="{{ path('home') }}" class="btn btn-default">Retourner à l'accueil</a>
+    </div>
+{% endblock %}
